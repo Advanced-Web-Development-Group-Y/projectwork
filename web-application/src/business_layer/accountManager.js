@@ -1,7 +1,7 @@
-const accountRepository = require('../database_layer/humanRepository')
+const accountRepository = require('../dataaccess_layer/accountRepository')
 
 exports.getAllAccounts = callback => {
-    // authorization here
+    // authorization here, only admins should be able to get all accounts
     accountRepository.getAllAccounts(accounts => {
         callback(accounts)
     })

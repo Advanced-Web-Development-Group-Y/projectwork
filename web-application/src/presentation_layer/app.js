@@ -1,8 +1,9 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
 const app = express()
-
-app.set('views', 'src/views')
+const routes = require('./routes')
+app.set('views', 'src/presentation_layer/views')
+app.use('/', routes)
 
 app.engine(
     'hbs',
@@ -10,9 +11,6 @@ app.engine(
         defaultLayout: 'main.hbs'
     })
 )
-app.get('/', (request, response) => {
-    response.send('Hello, Worlsds')
-})
 
 app.listen(8080, () => {
     console.log('Web application listening on port 8080.')
