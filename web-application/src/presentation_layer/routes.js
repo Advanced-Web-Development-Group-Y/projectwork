@@ -5,7 +5,7 @@ const router = express.Router()
 
 //All routers
 router.get('/', (request, response) => {
-    response.render('home.hbs')
+    response.render('home.hbs', { layout: 'landing.hbs' })
 })
 router.get('/posts', (request, response) => {
     response.render('posts.hbs')
