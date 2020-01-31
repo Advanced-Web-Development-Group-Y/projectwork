@@ -8,17 +8,17 @@ router.get('/', (request, response) => {
     response.render('home.hbs')
 })
 router.get('/posts', (request, response) => {
-    response.render('posts.hbs', { id: request.params.id })
+    response.render('posts.hbs')
 })
 router.get('/post/:id', (request, response) => {
     response.render('post.hbs', { id: request.params.id })
 })
 
 router.get('/login', (request, response) => {
-    response.render('login.hbs', { id: request.params.id })
+    response.render('login.hbs')
 })
 router.get('/register', (request, response) => {
-    response.render('register.hbs', { id: request.params.id })
+    response.render('register.hbs')
 })
 router.get('/accounts', () => {
     accountsManager.getAllAccounts(accounts => {
