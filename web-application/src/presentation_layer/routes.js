@@ -25,6 +25,9 @@ router.get('/accounts', () => {
         response.render('accounts.hbs', { accounts })
     })
 })
+router.get('/about', (request, response) => {
+    response.render('about.hbs')
+})
 router.get('*', (request, response) => {
     response.render('404.hbs')
 })
