@@ -27,6 +27,8 @@ CREATE TABLE posts (
 	title VARCHAR(50) NOT NULL,
 	content VARCHAR(512) NOT NULL,
 	posterid INT(10) NOT NULL,
+	post_date VARCHAR(50) DEFAULT '2020-01-01',
+	last_update VARCHAR(50),
 	PRIMARY KEY (postid),
 	FOREIGN KEY (posterid) REFERENCES accounts(userid)
 );
@@ -47,11 +49,28 @@ INSERT INTO accounts (
 		"admin"
 );
 
+/*Inserting standard post into posts upon creation for testing*/
+INSERT INTO posts (
+	title, 
+	content, 
+	posterid
+	)
+	VALUES (
+		"First test post", 
+		"Ye but I mean, this was a nice test, right??", 
+		1
+);
+
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 /*Quick SQL query to view all accounts*/
 /*
 SELECT * FROM accounts;
+*/
+
+/*Quick SQL query to view all posts*/
+/*
+SELECT * FROM posts;
 */
 
 /*DANGER, remoes tables from database!*/
