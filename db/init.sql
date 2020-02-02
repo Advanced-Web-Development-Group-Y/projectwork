@@ -8,7 +8,7 @@
 	And press CTRL + ALT + E
 */
 
-/* RUN THE SQL-QUERIES INSIDE THE " - - - " MARKS WHEN CREATING THE DATABASE */
+/* RUN THE SQL-QUERIES INSIDE THE " - - - " MARKS TO MANUALLY CREATE THE DB  */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 CREATE TABLE accounts (
