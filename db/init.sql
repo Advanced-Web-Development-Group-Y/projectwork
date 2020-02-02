@@ -2,6 +2,10 @@
   To manually run an SQL-query: 
 	1 - Highlight the query you want to run.
 	2 - Press CTRL + ALT + E 
+
+	For example, highlight the following SQL-query:
+		SELECT * FROM accounts;
+	And press CTRL + ALT + E
 */
 
 /* RUN THE SQL-QUERIES INSIDE THE " - - - " MARKS WHEN CREATING THE DATABASE */
@@ -47,7 +51,7 @@ INSERT INTO accounts (
 
 /*Quick SQL query to view all accounts*/
 /*
-SELECT * FROM `webAppDatabase`.`accounts`;
+SELECT * FROM accounts;
 */
 
 /*DANGER, remoes tables from database!*/
