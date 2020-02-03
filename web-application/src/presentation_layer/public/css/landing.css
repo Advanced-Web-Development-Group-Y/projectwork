@@ -1,0 +1,66 @@
+#landingTitle {
+    font-family: 'Noto Sans', sans-serif;
+    color: #ebebd3;
+    font-size: 45pt;
+}
+body {
+    background-image: url('/images/landing.jpg');
+    background-color: #ebebd3;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+#content {
+    margin-top: 300px;
+}
+.overlay {
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    overflow: auto;
+    top: 0px;
+    left: 0px;
+    background: rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+.btn {
+    border-radius: 50px;
+    color: #ebebd3;
+    background-color: #253237;
+    padding: 15px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.btn:hover {
+    background-color: #ebebd3;
+    color: #253237;
+}
+hr {
+    background-color: #253237;
+    width: 150px;
+    height: 2px;
+    border-radius: 10px;
+}
+h2 {
+    color: #ebebd3;
+    font-size: 12pt;
+}
+.navbar {
+    font-family: 'Noto Sans', sans-serif;
+    color: #ebebd3;
+    position: fixed;
+    left: 50%;
+    font-size: 30pt;
+    transform: translate(-50%, 0);
+}
+.navbar p:nth-child(even) {
+    margin-left: 15px;
+    margin-right: 15px;
+    text-decoration: line-through;
+}
+.navbar p:nth-child(odd) {
+    font-size: 12pt;
+}

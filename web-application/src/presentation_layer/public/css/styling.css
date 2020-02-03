@@ -1,6 +1,32 @@
-nav {
-    padding: 15px;
+.navbar {
+    position: fixed;
+    width: 100%;
+    z-index: 999;
 }
 h1 {
-    color: red;
+    text-align: center;
+}
+.navbar-brand {
+    font-family: 'Noto Sans', sans-serif;
+    text-decoration: line-through;
+    margin: 0 auto;
+    margin-right: 25px;
+}
+#container {
+    display: flex;
+    margin-top: 15px;
+}
+#filters {
+    flex: 0 0 25%;
+    padding: 15px;
+    text-align: center;
+}
+#items {
+    flex: 1;
+}
+.card {
+    margin-left: 25px;
+    margin-right: 25px;
+    display: inline-block;
+    margin-bottom: 15px;
 }

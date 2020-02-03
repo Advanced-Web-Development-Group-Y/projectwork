@@ -1,1 +1,9 @@
-<h1>Single posts f.e. /post/{{id}}</h1>
+<div id="postContent">
+    <h1>Post</h1>
+    {{#if post.length}}
+    {{#each post}}
+    <h1>{{title}}</h1>
+    <h2>{{content}}</h2>
+    {{/each}}
+    {{/if}}
+</div>
