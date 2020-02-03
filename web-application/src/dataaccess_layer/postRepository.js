@@ -9,20 +9,17 @@ const con = mysql.createConnection({
     database: 'webAppDatabase'
 })
 
-con.connect(error => {
-    if (error) console.log(error)
-    else console.log('Connected!')
-})
+con.connect()
 
-exports.getAllAccounts = callback => {
-    const query = 'SELECT * FROM Accounts'
-    con.query(query, (error, accounts) => {
-        callback(error, accounts)
-    })
-}
 exports.getAllPosts = callback => {
     const query = 'SELECT * FROM posts'
     con.query(query, (error, posts) => {
+        callback(error, posts)
+    })
+}
+exports.getPost = (id, callback) => {
+    const query = 'SELECT * FROM posts WHERE postid = ?'
+    con.query(query, id, (error, posts) => {
         callback(error, posts)
     })
 }

@@ -1,7 +1,44 @@
 <h1>All posts</h1>
 
-<div id="post">
-    <h3 id="title">
+<section id="container">
+    <div id="filters">
+        <form method="GET" action="/posts">
+            <h3>Filter</h3>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Key word</label>
+                <input type="text" class="form-control form-control-lg" id="exampleFormControlInput1"
+                    placeholder="example: csgo keys">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Game/Platform</label>
+                <select class="form-control form-control-lg" id="exampleFormControlSelect1">
+                    <option>-</option>
+                    <option>Counter-Strike: Global Offensive</option>
+                    <option>League of Legends</option>
+                    <option>World Of Warcraft</option>
+                    <option>Dota 2</option>
+                    <option>Escape from tarkov</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Filter</button>
 
-    </h3>
-</div>
+        </form>
+    </div>
+
+    <div id="items">
+        {{#if posts.length}}
+        {{#each posts}}
+        <div class="card" style="width: 18rem;">
+            <img src="/images/placeholder.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{title}}</h5>
+                <p style="margin: 0;">{{post_date}}</p>
+                <p class="card-text">{{content}}</p>
+                <a href="/post/{{postid}}" class="btn btn-primary">Check it out</a>
+            </div>
+        </div>
+        {{/each}}
+        {{/if}}
+    </div>
+
+</section>
