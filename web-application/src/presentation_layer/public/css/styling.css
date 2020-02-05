@@ -12,8 +12,11 @@ h1 {
     margin: 0 auto;
     margin-right: 25px;
 }
-#container {
+#homeContainer {
     display: flex;
+    margin-top: 15px;
+}
+#newContainer {
     margin-top: 15px;
 }
 #filters {

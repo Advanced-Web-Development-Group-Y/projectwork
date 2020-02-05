@@ -1,10 +1,15 @@
 const express = require('express')
 const accountManager = require('../business_layer/accountManager')
 const postManager = require('../business_layer/postManager')
-
 const router = express.Router()
-
+const bcrypt = require('bcrypt')
 //All routers
+
+const auth = (request, response, next) => {
+    if (!request.session.isLoggedIn) {
+        response.redirect('/login')
+    } else next()
+}
 router.get('/', (request, response) => {
     response.render('landing.hbs', { layout: 'landing.hbs' })
 })
@@ -24,7 +29,7 @@ router.get('/posts', (request, response) => {
         }
     })
 })
-router.get('/post/new', (request, response) => {
+router.get('/post/new', auth, (request, response) => {
     response.render('addnew.hbs')
 })
 router.get('/post/:id', (request, response) => {
@@ -45,23 +50,62 @@ router.get('/post/:id', (request, response) => {
 })
 
 router.get('/login', (request, response) => {
-    response.render('login.hbs')
+    if (request.session.isLoggedIn) response.redirect('/posts')
+    else response.render('login.hbs', { layout: 'noappbar.hbs' })
 })
 router.get('/register', (request, response) => {
-    response.render('register.hbs')
+    response.render('register.hbs', { layout: 'noappbar.hbs' })
 })
-router.get('/accounts', () => {
-    accountManager.getAllAccounts(accounts => {
-        response.render('accounts.hbs', { accounts })
+router.get('/profile/:userId', (request, response) => {
+    accountManager.getAccountById(request.params.userId, (error, user) => {
+        if (error || user.length === 0) {
+            const model = {
+                somethingWentWrong: true
+            }
+            response.render('profile.hbs', model)
+        } else {
+            const model = {
+                somethingWentWrong: false,
+                user
+            }
+            response.render('profile.hbs', model)
+        }
     })
 })
-router.get('/profile', (request, response) => {
-    response.render('profile.hbs')
+router.get('/profile', auth, (request, response) => {
+    response.render('profile.hbs', { user: request.session.user })
 })
 router.get('/about', (request, response) => {
     response.render('about.hbs')
 })
+router.get('/logout', (request, response) => {
+    request.session.isLoggedIn = false
+    request.session.user = null
+    response.redirect('/')
+})
+
 router.get('*', (request, response) => {
     response.render('404.hbs')
+})
+
+router.post('/login', (request, response) => {
+    accountManager.login(request.body, (error, user) => {
+        if (error) {
+            response.render('login.hbs', { layout: 'noappbar.hbs', error })
+        } else {
+            request.session.isLoggedIn = true
+            request.session.user = user
+            response.redirect('/posts')
+        }
+    })
+})
+router.post('/register', (request, response) => {
+    accountManager.register(request.body, error => {
+        if (error) {
+            response.render('register.hbs', { layout: 'noappbar.hbs', error })
+        } else {
+            response.redirect('/login')
+        }
+    })
 })
 module.exports = router
