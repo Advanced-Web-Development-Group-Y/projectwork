@@ -1,1 +1,13 @@
-<h1>profiel</h1>
+<h1 style="padding-top:50px">Profile</h1>
+{{#if somethingWentWrong}}
+<h1>User does not exist!</h1>
+{{/if}}
+{{#if user}}
+{{#each user}}
+<p>Email: {{email}}</p>
+<p>Firstname: {{firstname}}</p>
+<p>Lastname: {{lastname}}</p>
+<p>Permissionlevel: {{permission_level}}</p>
+<p>Registered: {{reg_date}}</p>
+{{/each}}
+{{/if}}

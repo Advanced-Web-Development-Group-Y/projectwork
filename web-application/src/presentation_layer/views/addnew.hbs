@@ -1,1 +1,37 @@
-<h1>add new</h1>
+<h1>All posts</h1>
+
+<section id="container">
+    <div id="filters">
+        <form method="GET" action="/posts">
+            <h3>Add new</h3>
+            <div class="form-group">
+                <label for="titleInput">Title</label>
+                <input type="text" class="form-control form-control-lg" id="titleInput"
+                    placeholder="example: 200 riot points">
+            </div>
+            <div class="form-group">
+                <label for="descriptionInput">Description</label>
+                <textarea class="form-control" id="descriptionInput" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="platformInput">Game/Platform</label>
+                <select class="form-control form-control-lg" id="platformInput">
+                    <option>-</option>
+                    <option>Counter-Strike: Global Offensive</option>
+                    <option>League of Legends</option>
+                    <option>World Of Warcraft</option>
+                    <option>Dota 2</option>
+                    <option>Runescape</option>
+                    <option>Other</option>
+                    <option>Any</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="imageInput">Image</label>
+                <input type="file" class="form-control-file" id="imageInput">
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+
+        </form>
+    </div>
+</section>

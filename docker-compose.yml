@@ -1,4 +1,7 @@
 version: '3'
+networks:
+    app-tier:
+        driver: bridge
 services:
     'web-application':
         build: './web-application'
@@ -16,3 +19,8 @@ services:
         environment:
             - MYSQL_ROOT_PASSWORD=elpassword123
             - MYSQL_DATABASE=webAppDatabase
+    redis:
+        build: ./redis-db
+        command: redis-server --requirepass elpassword123
+        ports:
+            - '6379:6379'

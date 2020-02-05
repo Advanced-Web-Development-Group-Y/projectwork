@@ -34,18 +34,31 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/posts">Browse</a>
                 </li>
+                {{#if isLoggedIn}}
                 <li class="nav-item">
                     <a class="nav-link" href="/post/new">Add post</a>
                 </li>
+                {{/if}}
                 <li class="nav-item">
                     <a class="nav-link" href="/about">About</a>
                 </li>
+                {{#if isLoggedIn}}
+
                 <li class="nav-item">
                     <a class="nav-link" href="/profile">Profile</a>
                 </li>
+                {{/if}}
+                {{#if isLoggedIn}}
+
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Logout</a>
+                    <a class="nav-link" href="/logout">Logout</a>
                 </li>
+                {{else}}
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                {{/if}}
+
             </ul>
         </div>
     </nav>

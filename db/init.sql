@@ -25,8 +25,10 @@ CREATE TABLE accounts
 	(50) NOT NULL,
 	lastname VARCHAR
 	(50) NOT NULL,
-	reg_date VARCHAR
-	(50) DEFAULT '2020-01-01',
+	permission_level INT
+	(10) NOT NULL DEFAULT 0,
+	reg_date datetime
+	DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY
 	(userid)
 );
@@ -41,8 +43,8 @@ CREATE TABLE accounts
 		(512) NOT NULL,
 	posterid INT
 		(10) NOT NULL,
-	post_date VARCHAR
-		(50) DEFAULT '2020-01-01',
+	post_date datetime
+		DEFAULT CURRENT_TIMESTAMP,
 	last_update VARCHAR
 		(50),
 	PRIMARY KEY
@@ -59,15 +61,17 @@ CREATE TABLE accounts
 			username,
 			password,
 			firstname,
-			lastname
+			lastname,
+			permission_level
 			)
 		VALUES
 			(
 				"admin@admin.com",
 				"admin",
+				"$2b$10$U/fRD0/j/haEPEHjDMe7lu8ZxlG1d7bVl5p8af0rUcjNIxInTrBy6",
 				"admin",
 				"admin",
-				"admin"
+				1
 );
 
 		/*Inserting standard post into posts upon creation for testing*/
