@@ -45,8 +45,10 @@ CREATE TABLE accounts
 		(10) NOT NULL,
 	post_date datetime
 		DEFAULT CURRENT_TIMESTAMP,
-	last_update VARCHAR
-		(50),
+	last_update datetime
+		DEFAULT NULL,
+	platform VARCHAR
+		(256) NOT NULL,
 	PRIMARY KEY
 		(postid),
 	FOREIGN KEY
@@ -79,25 +81,27 @@ CREATE TABLE accounts
 			(
 			title,
 			content,
-			posterid
+			posterid,
+			platform
 			)
 		VALUES
 			(
 				"First test post",
 				"Ye but I mean, this was a nice test, right??",
-				1
+				1,
+				"League of Legends"
 );
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 /*Quick SQL query to view all accounts*/
 /*
-SELECT * FROM accounts;
+SELECT * FROM `webAppDatabase`.`accounts`;
 */
 
 /*Quick SQL query to view all posts*/
 /*
-SELECT * FROM posts;
+SELECT * FROM `webAppDatabase`.`posts`;
 */
 
 /*DANGER, remoes tables from database!*/
