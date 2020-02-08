@@ -32,9 +32,16 @@
             <img src="/images/placeholder.png" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">{{title}}</h5>
-                <p style="margin: 0;">{{post_date}}</p>
+                {{#if last_update}}
+                <p style="margin: 0;">Last update: {{last_update}}</p>
+                {{else}}
+                <p style="margin: 0;">Posted: {{post_date}}</p>
+                {{/if}}
                 <p class="card-text">{{content}}</p>
+                <p>Game: {{platform}}</p>
+                {{#if ../isLoggedIn}}
                 <a href="/post/{{postid}}" class="btn btn-primary">Check it out</a>
+                {{/if}}
             </div>
         </div>
         {{/each}}

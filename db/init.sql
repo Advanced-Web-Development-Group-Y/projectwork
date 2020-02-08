@@ -76,7 +76,7 @@ CREATE TABLE accounts
 				1
 );
 
-		/*Inserting standard post into posts upon creation for testing*/
+		/*Inserting standard posts into posts upon creation for testing*/
 		INSERT INTO posts
 			(
 			title,
@@ -86,11 +86,27 @@ CREATE TABLE accounts
 			)
 		VALUES
 			(
-				"First test post",
-				"Ye but I mean, this was a nice test, right??",
+				"Diamond account EUW lvl420",
+				"Bestest account of all times, I promise!!",
 				1,
 				"League of Legends"
 );
+
+		INSERT INTO posts
+			(
+			title,
+			content,
+			posterid,
+			platform
+			)
+		VALUES
+			(
+				"Thunderfury, Blessed Blade of the Windseeker",
+				"Did someone say [ Thunderfury, Blessed Blade of the Windseeker ]?",
+				1,
+				"World of Warcraft"
+);
+
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
@@ -101,11 +117,17 @@ SELECT * FROM `webAppDatabase`.`accounts`;
 
 /*Quick SQL query to view all posts*/
 /*
-SELECT * FROM `webAppDatabase`.`posts`;
+{SELECT * FROM `webAppDatabase`.`posts`;}
 */
 
 /*DANGER, remoes tables from database!*/
 /*
 DROP TABLE posts;
 DROP TABLE accounts;
+*/
+
+/* TEST QUERYS
+
+SELECT * FROM `webAppDatabase`.`posts` WHERE posterid = 1 AND postid = 1
+
 */

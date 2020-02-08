@@ -2,8 +2,22 @@
     <h1>Post</h1>
     {{#if post.length}}
     {{#each post}}
-    <h1>{{title}}</h1>
-    <h2>{{content}}</h2>
+    <div id="title">
+        <h1>{{title}}</h1>
+    </div>
+    <div id="content">
+        <h2>{{content}}</h2>
+    </div>
+    <div id="game">
+        <h4>Game: {{platform}}</h4>
+    </div>
+    <div id="posttime">
+        <p>Posted: {{post_date}}</p>
+        {{#if last_update}}<p>Last Update: {{last_update}}</p>{{/if}}
+    </div>
+    <div id="updateBtn">
+        <a href="/post/update/{{postid}}" class="btn btn-primary">Update Post</a>
+    </div>
     {{/each}}
     {{/if}}
 </div>

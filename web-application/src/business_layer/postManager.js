@@ -22,7 +22,18 @@ exports.addPost = (post, callback) => {
         callback('The description must be atleast 10 characters long');
     else if (post.platform == '-') callback('You must choose a game!');
     else {
-        console.log(post);
         postRepository.addPost(post, callback);
+    }
+};
+
+exports.updatePost = (post, callback) => {
+    if (post.title.length < 5)
+        callback('Title must be atleast 5 characters long');
+    else if (post.title.length > 200)
+        callback('Title cannot be more than 200 characters long');
+    else if (post.content.length < 10)
+        callback('The description must be atleast 10 characters long');
+    else {
+        postRepository.updatePost(post, callback);
     }
 };
