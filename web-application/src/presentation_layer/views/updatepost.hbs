@@ -1,0 +1,47 @@
+<h1 style="padding-top:55px">Update Post</h1>
+
+{{#if post.length}}
+{{#each post}}
+
+<form method="POST" action="/post/update/{{postid}}">
+    <div class="form-group">
+        <label for="titleInput">Title</label>
+        <input type="text" class="form-control form-control-lg" id="titleInput" placeholder="example: 200 riot points"
+            name="titleInput" value="{{title}}">
+    </div>
+
+    <div class="form-group">
+        <label for="descriptionInput">Description</label>
+        <textarea class="form-control" id="descriptionInput" rows="3" name="descriptionInput">{{content}}</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Post</button>
+</form>
+
+{{/each}}
+
+{{else}}
+
+<form method="POST" action="/post/update/{{post.postid}}">
+    <div class="form-group">
+        <label for="titleInput">Title</label>
+        <input type="text" class="form-control form-control-lg" id="titleInput" placeholder="example: 200 riot points"
+            name="titleInput" value="{{post.title}}">
+    </div>
+
+    <div class="form-group">
+        <label for="descriptionInput">Description</label>
+        <textarea class="form-control" id="descriptionInput" rows="3"
+            name="descriptionInput">{{post.content}}</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Post</button>
+</form>
+
+{{/if}}
+
+{{#if error}}
+<div id="errorMessage">
+    <p>{{error}}</p>
+</div>
+{{/if}}

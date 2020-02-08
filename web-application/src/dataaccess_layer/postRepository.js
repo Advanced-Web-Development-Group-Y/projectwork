@@ -36,4 +36,16 @@ exports.addPost = (post, callback) => {
     );
 };
 
+exports.updatePost = (post, callback) => {
+    const query = `UPDATE posts 
+        SET title = ?, 
+        content = ?, 
+        last_update = CURRENT_TIMESTAMP 
+        WHERE postid = ?`;
+
+    con.query(query, [post.title, post.content, post.postid], error => {
+        callback(error);
+    });
+};
+
 // These functions should be called in business_layer

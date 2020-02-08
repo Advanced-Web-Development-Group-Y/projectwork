@@ -24,6 +24,7 @@ router.get('/posts', (request, response) => {
         } else {
             const model = {
                 somethingWentWrong: false,
+                isLoggedIn: request.session.isLoggedIn,
                 posts
             };
             response.render('posts.hbs', model);
@@ -85,6 +86,20 @@ router.get('/logout', (request, response) => {
     response.redirect('/');
 });
 
+router.get('/post/update/:id', (request, response) => {
+    if (request.session.isLoggedIn) {
+        postManager.getPost(request.params.id, (error, post) => {
+            if (error) {
+                response.redirect('/posts');
+            } else {
+                response.render('updatepost.hbs', { post });
+            }
+        });
+    } else {
+        response.redirect('/login');
+    }
+});
+
 router.get('*', (request, response) => {
     response.render('404.hbs');
 });
@@ -111,21 +126,45 @@ router.post('/register', (request, response) => {
 });
 
 router.post('/post/new', (request, response) => {
-    var post = {
-        posterid: request.session.user[0].userid,
-        title: request.body.title,
-        description: request.body.descriptionInput,
-        platform: request.body.platformInput
-    };
+    if (request.session.isLoggedIn) {
+        var post = {
+            posterid: request.session.user[0].userid,
+            title: request.body.title,
+            description: request.body.descriptionInput,
+            platform: request.body.platformInput
+        };
 
-    postManager.addPost(post, error => {
-        if (error) {
-            console.log('Error adding post:', error);
-            response.render('addnew.hbs', { error, post });
-        } else {
-            response.redirect('/posts');
-        }
-    });
+        postManager.addPost(post, error => {
+            if (error) {
+                response.render('addnew.hbs', { error, post });
+            } else {
+                response.redirect('/posts');
+            }
+        });
+    } else {
+        response.redirect('/login');
+    }
+});
+
+router.post('/post/update/:id', (request, response) => {
+    if (request.session.isLoggedIn) {
+        const post = {
+            title: request.body.titleInput,
+            content: request.body.descriptionInput,
+            postid: request.params.id
+        };
+        postManager.updatePost(post, error => {
+            if (error) {
+                console.log(post, error);
+
+                response.render('updatepost.hbs', { error, post });
+            } else {
+                response.redirect('/post/' + request.params.id);
+            }
+        });
+    } else {
+        response.redirect('/login');
+    }
 });
 
 module.exports = router;
