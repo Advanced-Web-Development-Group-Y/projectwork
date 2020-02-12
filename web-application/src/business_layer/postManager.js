@@ -13,6 +13,12 @@ exports.getPost = (id, callback) => {
     });
 };
 
+exports.checkIfUsersPost = (postid, callback) => { 
+    postRepository.checkIfUsersPost(postid, (error, posterid) => {
+        callback(error, posterid);
+    });
+};
+
 exports.addPost = (post, callback) => {
     if (post.title.length < 5)
         callback('Title must be atleast 5 characters long');
@@ -35,5 +41,13 @@ exports.updatePost = (post, callback) => {
         callback('The description must be atleast 10 characters long');
     else {
         postRepository.updatePost(post, callback);
+    }
+};
+
+exports.deletePostById = (id, callback) => {
+    if (id <= -1) {
+        callback("Not a valid ID!")
+    } else {
+        postRepository.deletePostById(id, callback);
     }
 };

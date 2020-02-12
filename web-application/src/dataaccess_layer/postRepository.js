@@ -48,4 +48,23 @@ exports.updatePost = (post, callback) => {
     });
 };
 
+exports.deletePostById = (id, callback) => {
+    const query = `DELETE FROM posts 
+        WHERE postid = ?`;
+    
+    con.query(query, id, error => {
+        callback(error)
+    });         
+};
+
+exports.checkIfUsersPost = (postid, callback) => {
+    const query = `SELECT posterid 
+        FROM posts
+        WHERE postid = ?`;
+
+    con.query(query, postid, (error, posterid) => {
+        callback(error, posterid)
+    });
+}
+
 // These functions should be called in business_layer

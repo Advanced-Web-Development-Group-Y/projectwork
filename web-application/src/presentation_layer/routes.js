@@ -35,18 +35,37 @@ router.get('/post/new', auth, (request, response) => {
     response.render('addnew.hbs');
 });
 router.get('/post/:id', (request, response) => {
-    postManager.getPost(request.params.id, (error, post) => {
+    const postid = request.params.id
+
+    postManager.getPost(postid, (error, post) => {
         if (error) {
             const model = {
                 somethingWentWrong: true
             };
             response.render('post.hbs', model);
         } else {
-            const model = {
-                somethingWentWrong: false,
-                post
-            };
-            response.render('post.hbs', model);
+
+            postManager.checkIfUsersPost(postid, (error, posterid) => {
+                if (error) {
+                    const model = {
+                        somethingWentWrong: true,
+                    };
+                    response.render('post.hbs', model);
+                } else {
+                    let canEditPost = (posterid[0].posterid === request.session.user[0].userid) ? true : false;
+
+                    if (request.session.user[0].permission_level === 1) {
+                        canEditPost = true;
+                    }
+
+                    const model = {
+                        somethingWentWrong: false,
+                        canUserEditPost: canEditPost,
+                        post
+                    };
+                    response.render('post.hbs', model);
+                }
+            })
         }
     });
 });
@@ -86,18 +105,29 @@ router.get('/logout', (request, response) => {
     response.redirect('/');
 });
 
-router.get('/post/update/:id', (request, response) => {
-    if (request.session.isLoggedIn) {
-        postManager.getPost(request.params.id, (error, post) => {
-            if (error) {
-                response.redirect('/posts');
-            } else {
-                response.render('updatepost.hbs', { post });
+router.get('/post/update/:id', auth, (request, response) => {
+    postManager.getPost(request.params.id, (error, fetchedPost) => {
+        if (error) {
+            response.redirect('/posts');
+        } else {
+            const post = {
+                postid: fetchedPost[0].postid,
+                title: fetchedPost[0].title,
+                content: fetchedPost[0].content
             }
-        });
-    } else {
-        response.redirect('/login');
-    }
+            response.render('updatepost.hbs', { post });
+        }
+    });
+}); 
+
+router.get('/post/delete/:id', auth, (request, response) => {
+    postManager.deletePostById(request.params.id, error => {
+        if (error) {
+            response.redirect('/posts')
+        } else {
+            response.redirect('/posts')
+        }
+    });
 });
 
 router.get('*', (request, response) => {
@@ -125,46 +155,36 @@ router.post('/register', (request, response) => {
     });
 });
 
-router.post('/post/new', (request, response) => {
-    if (request.session.isLoggedIn) {
-        var post = {
-            posterid: request.session.user[0].userid,
-            title: request.body.title,
-            description: request.body.descriptionInput,
-            platform: request.body.platformInput
-        };
+router.post('/post/new', auth, (request, response) => {
+    var post = {
+        posterid: request.session.user[0].userid,
+        title: request.body.title,
+        description: request.body.descriptionInput,
+        platform: request.body.platformInput
+    };
 
-        postManager.addPost(post, error => {
-            if (error) {
-                response.render('addnew.hbs', { error, post });
-            } else {
-                response.redirect('/posts');
-            }
-        });
-    } else {
-        response.redirect('/login');
-    }
+    postManager.addPost(post, error => {
+        if (error) {
+            response.render('addnew.hbs', { error, post });
+        } else {
+            response.redirect('/posts');
+        }
+    });
 });
 
-router.post('/post/update/:id', (request, response) => {
-    if (request.session.isLoggedIn) {
-        const post = {
-            title: request.body.titleInput,
-            content: request.body.descriptionInput,
-            postid: request.params.id
-        };
-        postManager.updatePost(post, error => {
-            if (error) {
-                console.log(post, error);
-
-                response.render('updatepost.hbs', { error, post });
-            } else {
-                response.redirect('/post/' + request.params.id);
-            }
-        });
-    } else {
-        response.redirect('/login');
-    }
+router.post('/post/update/:id', auth, (request, response) => {
+    const post = {
+        title: request.body.titleInput,
+        content: request.body.descriptionInput,
+        postid: request.params.id
+    };
+    postManager.updatePost(post, error => {
+        if (error) {
+            response.render('updatepost.hbs', { error, post });
+        } else {
+            response.redirect('/post/' + request.params.id);
+        }
+    });
 });
 
 module.exports = router;
