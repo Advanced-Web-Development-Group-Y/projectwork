@@ -1,47 +1,31 @@
-<h1 style="padding-top:55px">Update Post</h1>
+<h1 style="padding-top:100px">Update Post</h1>
 
-{{#if post.length}}
-{{#each post}}
+<div id="updatePost">
 
-<form method="POST" action="/post/update/{{postid}}">
+<form method="POST" action="/post/update/{{post.postid}}" id="updatePost">
     <div class="form-group">
-        <label for="titleInput">Title</label>
-        <input type="text" class="form-control form-control-lg" id="titleInput" placeholder="example: 200 riot points"
-            name="titleInput" value="{{title}}">
-    </div>
 
-    <div class="form-group">
-        <label for="descriptionInput">Description</label>
-        <textarea class="form-control" id="descriptionInput" rows="3" name="descriptionInput">{{content}}</textarea>
-    </div>
+        <p>Title</p>
 
-    <button type="submit" class="btn btn-primary">Update Post</button>
-</form>
-
-{{/each}}
-
-{{else}}
-
-<form method="POST" action="/post/update/{{post.postid}}">
-    <div class="form-group">
-        <label for="titleInput">Title</label>
         <input type="text" class="form-control form-control-lg" id="titleInput" placeholder="example: 200 riot points"
             name="titleInput" value="{{post.title}}">
     </div>
 
     <div class="form-group">
-        <label for="descriptionInput">Description</label>
+        
+        <p>Description</p>
+
         <textarea class="form-control" id="descriptionInput" rows="3"
-            name="descriptionInput">{{post.content}}</textarea>
+            name="descriptionInput" style="resize: none;">{{post.content}}</textarea>
     </div>
 
-    <button type="submit" class="btn btn-primary">Update Post</button>
+    <button type="submit" class="btn btn-primary" id="updateButton">Update Post</button>
 </form>
-
-{{/if}}
 
 {{#if error}}
 <div id="errorMessage">
     <p>{{error}}</p>
 </div>
 {{/if}}
+
+</div>
