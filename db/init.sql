@@ -18,7 +18,7 @@ CREATE TABLE accounts
 	email VARCHAR
 	(100) NOT NULL UNIQUE,
 	username VARCHAR
-	(50) NOT NULL UNIQUE,
+	(100) NOT NULL UNIQUE,
 	password VARCHAR
 	(255) NOT NULL,
 	firstname VARCHAR
@@ -35,20 +35,22 @@ CREATE TABLE accounts
 
 	CREATE TABLE posts
 	(
-		postid INT(10)
+	postid INT(10)
 		AUTO_INCREMENT,
 	title VARCHAR
-		(50) NOT NULL,
+		(256) NOT NULL,
 	content VARCHAR
-		(512) NOT NULL,
+		(1024) NOT NULL,
 	posterid INT
-		(10) NOT NULL,
+		(32) NOT NULL,
 	post_date datetime
 		DEFAULT CURRENT_TIMESTAMP,
 	last_update datetime
 		DEFAULT NULL,
 	platform VARCHAR
 		(256) NOT NULL,
+	views INT (32)
+		DEFAULT 0,
 	PRIMARY KEY
 		(postid),
 	FOREIGN KEY

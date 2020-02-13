@@ -1,13 +1,36 @@
 <h1 style="padding-top:50px">Profile</h1>
-{{#if somethingWentWrong}}
-<h1>User does not exist!</h1>
-{{/if}}
-{{#if user}}
-{{#each user}}
-<p>Email: {{email}}</p>
-<p>Firstname: {{firstname}}</p>
-<p>Lastname: {{lastname}}</p>
-<p>Permissionlevel: {{permission_level}}</p>
-<p>Registered: {{reg_date}}</p>
-{{/each}}
+<div id="profileBox">
+    {{#if somethingWentWrong}}
+        <h1>User does not exist!</h1>
+    {{/if}}
+    {{#if user}}
+        {{#each user}}
+            <p>Email: {{email}}</p>
+            <p>Firstname: {{firstname}}</p>
+            <p>Lastname: {{lastname}}</p>
+            <p>Permissionlevel: {{permission_level}}</p>
+            <p>Registered: {{reg_date}}</p>
+        {{/each}}
+    {{/if}}
+</div>
+
+<div id="usersPostTitle">
+    <h4>Your Posts</h4>
+</div>
+
+{{#if posts}}
+    {{#each posts}}
+        <div id="usersPost">
+            <h5>{{title}}</h5>
+            <h6>{{platform}}</h6>
+            <p>Posted: {{post_date}}</p>
+            {{#if last_update}} <p>Last update: {{last_update}}</p>{{/if}}
+            <p>Views: {{views}}</p>
+            <a href="/post/{{postid}}" class="btn btn-primary" id="checkOutPostBtn">Check out</a>
+        </div>  
+    {{/each}}
+{{else}}
+    <div id="noPosts">
+        <p>You have no posts</p>
+    </div>
 {{/if}}
