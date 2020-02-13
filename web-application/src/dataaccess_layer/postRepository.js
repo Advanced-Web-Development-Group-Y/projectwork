@@ -67,4 +67,25 @@ exports.checkIfUsersPost = (postid, callback) => {
     });
 }
 
+exports.getAllPostsByUser = (userid, callback) => {
+    const query = `SELECT * FROM posts WHERE posterid = ?`;
+
+    con.query(query, userid, (error, posts) => {
+        callback(error, posts);
+    });
+}
+
+exports.incrementViewCountByPostId = (postid, callback) => {
+    let query = `SELECT views FROM posts WHERE postid = ?`;
+    
+    con.query(query, postid, (error, viewCount) => {
+        let count = viewCount[0].views + 1;
+        query = `UPDATE posts SET views = ? WHERE postid = ?`; 
+
+        con.query(query, [count, postid], error => {
+            callback(error);
+        });
+    });
+}
+
 // These functions should be called in business_layer

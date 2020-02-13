@@ -51,3 +51,15 @@ exports.deletePostById = (id, callback) => {
         postRepository.deletePostById(id, callback);
     }
 };
+
+exports.getAllPostsByUser = (userid, callback) => {
+    postRepository.getAllPostsByUser(userid, (error, posts) =>{
+        callback(error, posts);
+    });
+};
+
+exports.incrementViewCountByPostId = (postid, callback) => {
+    postRepository.incrementViewCountByPostId(postid, (error) =>{
+        callback(error);
+    });
+};

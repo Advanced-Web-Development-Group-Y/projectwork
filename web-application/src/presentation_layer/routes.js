@@ -37,6 +37,12 @@ router.get('/post/new', auth, (request, response) => {
 router.get('/post/:id', (request, response) => {
     const postid = request.params.id
 
+    postManager.incrementViewCountByPostId(postid, error => {
+        if(error) {
+            console.log("Error raising viewcount: ", error)
+        }
+    });
+
     postManager.getPost(postid, (error, post) => {
         if (error) {
             const model = {
@@ -94,7 +100,13 @@ router.get('/profile/:userId', (request, response) => {
     });
 });
 router.get('/profile', auth, (request, response) => {
-    response.render('profile.hbs', { user: request.session.user });
+    postManager.getAllPostsByUser(request.session.user[0].userid, (error, posts) => {
+        if (error) {
+
+        } else {
+            response.render('profile.hbs', { user: request.session.user, posts });
+        }
+    })
 });
 router.get('/about', (request, response) => {
     response.render('about.hbs');
