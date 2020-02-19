@@ -4,6 +4,9 @@ const router = express.Router()
 router.get('/', (request, response) => {
     response.render('landing.hbs', { layout: 'landing.hbs' })
 })
+router.get('/gohome', (request, response) => {
+    response.redirect('/')
+})
 router.get('/about', (request, response) => {
     response.render('about.hbs')
 })
