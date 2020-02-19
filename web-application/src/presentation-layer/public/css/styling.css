@@ -34,6 +34,23 @@ h1 {
     margin-bottom: 15px;
 }
 
+.card .card-title {
+    line-height: 1em;
+    height: 3em; 
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card .card-platform {
+    margin-top: 10px;
+    line-height: 1em;
+    height: 2em;
+    overflow: hidden; 
+}
+
 #postContent {
     background-color: rgba(90, 90, 90, 0.2);
     width: 80%;
@@ -173,4 +190,10 @@ input[class="form-control-file"] {
 
 #noPosts {
     text-align: center;
+}
+
+#gohomeButton #gohome {
+    margin-left: 45%;
+    width: 10%;
+    margin-right: 45%;
 }
