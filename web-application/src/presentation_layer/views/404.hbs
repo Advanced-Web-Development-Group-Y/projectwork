@@ -5,3 +5,13 @@
 <div id="gohomeButton">
     <a href="/gohome" class="btn btn-primary" id="gohome">Go to homepage!</a>
 </div>
+
+<!---
+
+    Add this to the routes-file to make the "gohome"-button work:
+
+    router.get('/gohome', (request, response) => {
+        response.redirect('/');
+    }); 
+
+--->
