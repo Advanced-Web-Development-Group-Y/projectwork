@@ -37,7 +37,6 @@ app.engine(
 )
 
 /*Middlewares*/
-
 app.use((request, response, next) => {
     response.locals.isLoggedIn = request.session.isLoggedIn
     next()
