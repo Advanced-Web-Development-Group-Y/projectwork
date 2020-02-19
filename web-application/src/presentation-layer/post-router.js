@@ -66,20 +66,16 @@ module.exports = ({ postManager }) => {
             }
         })
     })
+
     router.get('/profile', (request, response) => {
-        postManager.getAllPostsByUser(
-            request.session.user[0].userid,
-            (error, posts) => {
-                if (error) {
-                } else {
-                    response.render('profile.hbs', {
-                        user: request.session.user,
-                        posts
-                    })
-                }
-            }
-        )
+        if (request.session.isLoggedIn) {
+            var string = encodeURIComponent(request.session.user[0].userid);
+            response.redirect('/profile/' + string);
+        } else {
+            response.redirect('/login')
+        }
     })
+
     router.get('/post/update/:id', (request, response) => {
         postManager.getPost(request.params.id, (error, fetchedPost) => {
             if (error) {

@@ -48,6 +48,14 @@ module.exports = ({}) => {
                     callback(error)
                 }
             )
+        },
+
+        getAllPostsByUser: (userid, callback) => {
+            const query = `SELECT * FROM posts WHERE posterid = ?`
+
+            con.query(query, userid, (error, posts) => {
+                callback(error, posts)
+            })
         }
     }
 }
