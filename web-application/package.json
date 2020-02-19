@@ -4,13 +4,14 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon src/presentation_layer/app.js",
+        "start": "nodemon src/presentation-layer/app.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "awilix": "^4.2.3",
         "bcrypt": "^3.0.7",
         "body-parser": "^1.19.0",
         "connect-redis": "^4.0.4",
