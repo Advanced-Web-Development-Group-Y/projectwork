@@ -3,16 +3,14 @@ const express = require('express')
 module.exports = ({ postManager }) => {
     const router = express.Router()
     router.get('/posts', (request, response) => {
-        postManager.getAllPosts(request, (error, posts) => {
+        postManager.getAllPosts((error, posts) => {
             if (error) {
                 const model = {
-                    somethingWentWrong: true,
                     error
                 }
                 response.render('posts.hbs', model)
             } else {
                 const model = {
-                    somethingWentWrong: false,
                     isLoggedIn: request.session.isLoggedIn,
                     posts
                 }
