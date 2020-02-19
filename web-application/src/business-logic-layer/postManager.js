@@ -1,10 +1,11 @@
 module.exports = ({ postRepository }) => {
     return {
-        getAllPosts: callback => {
-            // authorization
-            postRepository.getAllPosts((error, posts) => {
-                callback(error, posts)
-            })
+        getAllPosts: (request, callback) => {
+            if (request.session.isLoggedIn)
+                postRepository.getAllPosts((error, posts) => {
+                    callback(error, posts)
+                })
+            else callback('You are not authorized for this.')
         },
         getPost: (id, callback) => {
             // authorization

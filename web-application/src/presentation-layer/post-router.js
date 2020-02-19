@@ -3,10 +3,11 @@ const express = require('express')
 module.exports = ({ postManager }) => {
     const router = express.Router()
     router.get('/posts', (request, response) => {
-        postManager.getAllPosts((error, posts) => {
+        postManager.getAllPosts(request, (error, posts) => {
             if (error) {
                 const model = {
-                    somethingWentWrong: true
+                    somethingWentWrong: true,
+                    error
                 }
                 response.render('posts.hbs', model)
             } else {
