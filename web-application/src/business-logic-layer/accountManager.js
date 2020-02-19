@@ -46,6 +46,11 @@ module.exports = ({ accountRepository }) => {
                     } else callback(error, null)
                 }
             )
-        }
+        },
+        getAllPostsByUser: (userid, callback) => {
+            accountRepository.getAllPostsByUser(userid, (error, posts) => {
+                callback(error, posts)
+            })
+        },
     }
 }

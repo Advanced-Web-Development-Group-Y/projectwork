@@ -10,11 +10,21 @@ module.exports = ({ accountManager }) => {
                 }
                 response.render('profile.hbs', model)
             } else {
-                const model = {
-                    somethingWentWrong: false,
-                    user
-                }
-                response.render('profile.hbs', model)
+                accountManager.getAllPostsByUser(
+                    request.params.userId,
+                    (error, posts) => {
+                        if (error) {
+                        } else {
+                            const model = {
+                                somethingWentWrong: false,
+                                user,
+                                posts
+                            }
+            
+                            response.render('profile.hbs', model)
+                        }
+                    }
+                )
             }
         })
     })

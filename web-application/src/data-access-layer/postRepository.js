@@ -69,14 +69,6 @@ module.exports = ({}) => {
             })
         },
 
-        getAllPostsByUser: (userid, callback) => {
-            const query = `SELECT * FROM posts WHERE posterid = ?`
-
-            con.query(query, userid, (error, posts) => {
-                callback(error, posts)
-            })
-        },
-
         incrementViewCountByPostId: (postid, callback) => {
             let query = `SELECT views FROM posts WHERE postid = ?`
 
