@@ -23,7 +23,7 @@ module.exports = ({ postRepository }) => {
                 callback('Title must be atleast 5 characters long')
             else if (post.title.length > 200)
                 callback('Title cannot be more than 200 characters long')
-            else if (post.description.length < 10)
+            else if (post.content.length < 10)
                 callback('The description must be atleast 10 characters long')
             else if (post.platform == '-') callback('You must choose a game!')
             else {

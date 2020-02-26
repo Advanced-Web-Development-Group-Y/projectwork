@@ -2,8 +2,8 @@ const express = require('express')
 module.exports = ({ accountManager }) => {
     const router = express.Router()
 
-    router.get('/profile/:userId', (request, response) => {
-        accountManager.getAccountById(request.params.userId, (error, user) => {
+    router.get('/profile/:id', (request, response) => {
+        accountManager.getAccountById(request.params.id, (error, user) => {
             if (error || user.length === 0) {
                 const model = {
                     somethingWentWrong: true

@@ -20,7 +20,7 @@ module.exports = ({}) => {
             })
         },
         getPost: (id, callback) => {
-            const query = 'SELECT * FROM posts WHERE postid = ?'
+            const query = 'SELECT * FROM posts WHERE id = ?'
             con.query(query, id, (error, posts) => {
                 callback(error, posts)
             })
@@ -31,7 +31,7 @@ module.exports = ({}) => {
                 'INSERT INTO posts(title, content, posterid, platform)VALUES(?, ?, ?, ?);'
             con.query(
                 query,
-                [post.title, post.description, post.posterid, post.platform],
+                [post.title, post.content, post.posterid, post.platform],
                 error => {
                     callback(error)
                 }
@@ -42,8 +42,8 @@ module.exports = ({}) => {
             const query = `UPDATE posts 
         SET title = ?, 
         content = ?, 
-        last_update = CURRENT_TIMESTAMP 
-        WHERE postid = ?`
+        updatedAt = CURRENT_TIMESTAMP 
+        WHERE id = ?`
 
             con.query(query, [post.title, post.content, post.postid], error => {
                 callback(error)
@@ -52,20 +52,10 @@ module.exports = ({}) => {
 
         deletePostById: (id, callback) => {
             const query = `DELETE FROM posts 
-        WHERE postid = ?`
+        WHERE id = ?`
 
             con.query(query, id, error => {
                 callback(error)
-            })
-        },
-
-        checkIfUsersPost: (postid, callback) => {
-            const query = `SELECT posterid 
-        FROM posts
-        WHERE postid = ?`
-
-            con.query(query, postid, (error, posterid) => {
-                callback(error, posterid)
             })
         },
 
@@ -78,15 +68,19 @@ module.exports = ({}) => {
         },
 
         incrementViewCountByPostId: (postid, callback) => {
-            let query = `SELECT views FROM posts WHERE postid = ?`
+            let query = `SELECT views FROM posts WHERE id = ?`
 
             con.query(query, postid, (error, viewCount) => {
-                let count = viewCount[0].views + 1
-                query = `UPDATE posts SET views = ? WHERE postid = ?`
-
-                con.query(query, [count, postid], error => {
+                if (error) {
                     callback(error)
-                })
+                } else {
+                    let count = viewCount[0].views + 1
+                    query = `UPDATE posts SET views = ? WHERE id = ?`
+
+                    con.query(query, [count, postid], error => {
+                        callback(error)
+                    })
+                }
             })
         }
     }

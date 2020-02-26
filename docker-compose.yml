@@ -1,6 +1,6 @@
 version: '3'
 services:
-    'web-application':
+    web-application:
         build: './web-application'
         ports:
             - '8080:8080'
@@ -16,6 +16,7 @@ services:
         environment:
             - MYSQL_ROOT_PASSWORD=elpassword123
             - MYSQL_DATABASE=webAppDatabase
+
     redis:
         build: ./redis-db
         command: redis-server --requirepass elpassword123
