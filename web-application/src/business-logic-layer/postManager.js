@@ -43,18 +43,17 @@ module.exports = ({ postRepository }) => {
             }
         },
 
+        getAllPostsByUser: (userid, callback) => {
+            postRepository.getAllPostsByUser(userid, (error, posts) => {
+                callback(error, posts)
+            })
+        },
         deletePostById: (id, callback) => {
             if (id <= -1) {
                 callback('Not a valid ID!')
             } else {
                 postRepository.deletePostById(id, callback)
             }
-        },
-
-        getAllPostsByUser: (userid, callback) => {
-            postRepository.getAllPostsByUser(userid, (error, posts) => {
-                callback(error, posts)
-            })
         },
 
         incrementViewCountByPostId: (postid, callback) => {
