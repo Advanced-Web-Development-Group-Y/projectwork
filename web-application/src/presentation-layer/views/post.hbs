@@ -1,33 +1,36 @@
 <div id="postContent">
-    <h1>Post</h1>
     {{#if post.length}}
-        {{#each post}}
-            <div id="title">
-                <h1>{{title}}</h1>
-            </div>
-            <div id="content">
-                <h2>{{content}}</h2>
-            </div>
-            <div id="game">
-                <h4>Game: {{platform}}</h4>
-            </div>
-            <div id="posttime">
-                <p>Posted: {{post_date}}</p>
-                {{#if last_update}}<p>Last Update: {{last_update}}</p>{{/if}}
-            </div>
+    <h1>Post</h1>
+    {{#each post}}
+    <div id="title">
+        <h1>{{title}}</h1>
+    </div>
+    <div id="content">
+        <h2>{{content}}</h2>
+    </div>
+    <div id="game">
+        <h4>Game: {{platform}}</h4>
+    </div>
+    <div id="posttime">
+        <p>Posted: {{createdAt}}</p>
+        {{#if updatedAt}}<p>Last Update: {{updatedAt}}</p>{{/if}}
+    </div>
 
-            {{#if ../canUserEditPost}}
-            <div id="buttons">
-                <div id="updateBtn">
-                    <a href="/post/update/{{postid}}" class="btn btn-primary" id="updateBtn">Update Post</a>
-                </div>
-                <div id="deleteBtn">
-                    <a href="/post/delete/{{postid}}" class="btn btn-primary" id="deleteBtn">Delete Post</a>
-                </div>
-            </div>
-            {{/if}}
-        {{/each}}
+    {{#if ../canUserEditPost}}
+    <div id="buttons">
+        <div id="updateBtn">
+            <a href="/post/update/{{id}}" class="btn btn-primary" id="updateBtn">Update Post</a>
+        </div>
+        <div id="deleteBtn">
+            <a href="/post/delete/{{id}}" class="btn btn-primary" id="deleteBtn">Delete Post</a>
+        </div>
+    </div>
     {{/if}}
+    {{/each}}
+    {{/if}}
+    <div id="owner">
+
+    </div>
 </div>
 
 {{#if error}}

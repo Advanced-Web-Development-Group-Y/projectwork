@@ -2,8 +2,16 @@ const express = require('express')
 module.exports = ({ accountManager }) => {
     const router = express.Router()
 
-    router.get('/profile/:userId', (request, response) => {
-        accountManager.getAccountById(request.params.userId, (error, user) => {
+    router.get('/profile', (request, response) => {
+        if (request.session.isLoggedIn) {
+            var string = encodeURIComponent(request.session.user[0].id)
+            response.redirect('/profile/' + string)
+        } else {
+            response.redirect('/login')
+        }
+    })
+    router.get('/profile/:id', (request, response) => {
+        accountManager.getAccountById(request.params.id, (error, user) => {
             if (error || user.length === 0) {
                 const model = {
                     somethingWentWrong: true
@@ -11,7 +19,7 @@ module.exports = ({ accountManager }) => {
                 response.render('profile.hbs', model)
             } else {
                 accountManager.getAllPostsByUser(
-                    request.params.userId,
+                    request.params.id,
                     (error, posts) => {
                         if (error) {
                         } else {
@@ -20,7 +28,6 @@ module.exports = ({ accountManager }) => {
                                 user,
                                 posts
                             }
-            
                             response.render('profile.hbs', model)
                         }
                     }
@@ -39,6 +46,7 @@ module.exports = ({ accountManager }) => {
             }
         })
     })
+
     router.post('/register', (request, response) => {
         accountManager.register(request.body, error => {
             if (error) {

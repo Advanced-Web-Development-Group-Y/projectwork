@@ -13,7 +13,7 @@
 
 CREATE TABLE accounts
 (
-	userid INT(10)
+	id INT(10)
 	AUTO_INCREMENT NOT NULL UNIQUE,
 	email VARCHAR
 	(100) NOT NULL UNIQUE,
@@ -27,15 +27,15 @@ CREATE TABLE accounts
 	(50) NOT NULL,
 	permission_level INT
 	(10) NOT NULL DEFAULT 0,
-	reg_date datetime
-	DEFAULT CURRENT_TIMESTAMP,
+	createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY
-	(userid)
+	(id)
 );
 
 	CREATE TABLE posts
 	(
-	postid INT(10)
+		id INT(10)
 		AUTO_INCREMENT,
 	title VARCHAR
 		(256) NOT NULL,
@@ -43,19 +43,18 @@ CREATE TABLE accounts
 		(1024) NOT NULL,
 	posterid INT
 		(32) NOT NULL,
-	post_date datetime
-		DEFAULT CURRENT_TIMESTAMP,
-	last_update datetime
-		DEFAULT NULL,
 	platform VARCHAR
 		(256) NOT NULL,
-	views INT (32)
+	views INT
+		(32)
 		DEFAULT 0,
+	createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY
-		(postid),
+		(id),
 	FOREIGN KEY
 		(posterid) REFERENCES accounts
-		(userid)
+		(id)
 );
 
 		/*Inserting standard admin account upon creation*/

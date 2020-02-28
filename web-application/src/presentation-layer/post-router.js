@@ -2,6 +2,7 @@ const express = require('express')
 
 module.exports = ({ postManager }) => {
     const router = express.Router()
+
     router.get('/posts', (request, response) => {
         postManager.getAllPosts((error, posts) => {
             if (error) {
@@ -24,7 +25,6 @@ module.exports = ({ postManager }) => {
     })
     router.get('/post/:id', (request, response) => {
         const postid = request.params.id
-
         postManager.incrementViewCountByPostId(postid, error => {
             if (error) {
                 console.log('Error raising viewcount: ', error)
@@ -36,44 +36,26 @@ module.exports = ({ postManager }) => {
                 const model = {
                     somethingWentWrong: true
                 }
+
                 response.render('post.hbs', model)
             } else {
-                postManager.checkIfUsersPost(postid, (error, posterid) => {
-                    if (error) {
-                        const model = {
-                            somethingWentWrong: true
-                        }
-                        response.render('post.hbs', model)
-                    } else {
-                        let canEditPost =
-                            posterid[0].posterid ===
-                            request.session.user[0].userid
-                                ? true
-                                : false
+                let canEditPost =
+                    post[0].posterid === request.session.user[0].id
+                        ? true
+                        : false
 
-                        if (request.session.user[0].permission_level === 1) {
-                            canEditPost = true
-                        }
+                if (request.session.user[0].permission_level === 1) {
+                    canEditPost = true
+                }
 
-                        const model = {
-                            somethingWentWrong: false,
-                            canUserEditPost: canEditPost,
-                            post
-                        }
-                        response.render('post.hbs', model)
-                    }
-                })
+                const model = {
+                    somethingWentWrong: false,
+                    canUserEditPost: canEditPost,
+                    post
+                }
+                response.render('post.hbs', model)
             }
         })
-    })
-
-    router.get('/profile', (request, response) => {
-        if (request.session.isLoggedIn) {
-            var string = encodeURIComponent(request.session.user[0].userid);
-            response.redirect('/profile/' + string);
-        } else {
-            response.redirect('/login')
-        }
     })
 
     router.get('/post/update/:id', (request, response) => {
@@ -82,7 +64,7 @@ module.exports = ({ postManager }) => {
                 response.redirect('/posts')
             } else {
                 const post = {
-                    postid: fetchedPost[0].postid,
+                    id: fetchedPost[0].id,
                     title: fetchedPost[0].title,
                     content: fetchedPost[0].content
                 }
@@ -102,12 +84,11 @@ module.exports = ({ postManager }) => {
     })
     router.post('/post/new', (request, response) => {
         var post = {
-            posterid: request.session.user[0].userid,
+            posterid: request.session.user[0].id,
             title: request.body.title,
-            description: request.body.descriptionInput,
+            content: request.body.descriptionInput,
             platform: request.body.platformInput
         }
-
         postManager.addPost(post, error => {
             if (error) {
                 response.render('addnew.hbs', { error, post })

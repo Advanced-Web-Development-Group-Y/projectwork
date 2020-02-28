@@ -2,30 +2,30 @@
 
 <div id="updatePost">
 
-<form method="POST" action="/post/update/{{post.postid}}" id="updatePost">
-    <div class="form-group">
+    <form method="POST" action="/post/update/{{post.id}}" id="updatePost">
+        <div class="form-group">
 
-        <p>Title</p>
+            <p>Title</p>
 
-        <input type="text" class="form-control form-control-lg" id="titleInput" placeholder="example: 200 riot points"
-            name="titleInput" value="{{post.title}}">
+            <input type="text" class="form-control form-control-lg" id="titleInput"
+                placeholder="example: 200 riot points" name="titleInput" value="{{post.title}}">
+        </div>
+
+        <div class="form-group">
+
+            <p>Description</p>
+
+            <textarea class="form-control" id="descriptionInput" rows="3" name="descriptionInput"
+                style="resize: none;">{{post.content}}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="updateButton">Update Post</button>
+    </form>
+
+    {{#if error}}
+    <div id="errorMessage">
+        <p>{{error}}</p>
     </div>
-
-    <div class="form-group">
-        
-        <p>Description</p>
-
-        <textarea class="form-control" id="descriptionInput" rows="3"
-            name="descriptionInput" style="resize: none;">{{post.content}}</textarea>
-    </div>
-
-    <button type="submit" class="btn btn-primary" id="updateButton">Update Post</button>
-</form>
-
-{{#if error}}
-<div id="errorMessage">
-    <p>{{error}}</p>
-</div>
-{{/if}}
+    {{/if}}
 
 </div>

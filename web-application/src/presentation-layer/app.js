@@ -1,5 +1,6 @@
 /*Requires*/
 const express = require('express')
+const fileUpload = require('express-fileupload')
 const expressHandlebars = require('express-handlebars')
 const app = express()
 const routes = require('./general-router')
@@ -9,7 +10,6 @@ const session = require('express-session')
 const bodyParser = require('body-parser')
 const awilix = require('awilix')
 const RedisStore = require('connect-redis')(session)
-
 /*Redis setup*/
 let redisClient = redis.createClient({
     host: 'redis',
@@ -19,6 +19,7 @@ let redisClient = redis.createClient({
 redisClient.unref()
 redisClient.on('error', console.log)
 let store = new RedisStore({ client: redisClient })
+
 app.use(
     session({
         store,
@@ -37,12 +38,15 @@ app.engine(
 )
 
 /*Middlewares*/
+app.use(fileUpload({ createParentPath: true }))
+app.use(bodyParser.urlencoded({ extended: true }))
+
 app.use((request, response, next) => {
     response.locals.isLoggedIn = request.session.isLoggedIn
     next()
 })
-app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'public')))
+
 app.set('views', 'src/presentation-layer/views')
 
 /* Dependency injection */
@@ -51,7 +55,7 @@ app.set('views', 'src/presentation-layer/views')
 const container = awilix.createContainer()
 
 /*Account dependency*/
-const accountRepository = require('../data-access-layer/accountRepository')
+const accountRepository = require('../data-access-layer-MySQL/accountRepository')
 const accountManager = require('../business-logic-layer/accountManager')
 const accountRouter = require('../presentation-layer/account-router')
 
@@ -62,7 +66,7 @@ container.register('accountRouter', awilix.asFunction(accountRouter))
 const theAccountRouter = container.resolve('accountRouter')
 
 /*Post dependency*/
-const postRepository = require('../data-access-layer/postRepository')
+const postRepository = require('../data-access-layer-MySQL/postRepository')
 const postManager = require('../business-logic-layer/postManager')
 const postRouter = require('../presentation-layer/post-router')
 

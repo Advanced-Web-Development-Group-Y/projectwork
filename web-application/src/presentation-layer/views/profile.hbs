@@ -1,16 +1,16 @@
 <h1 style="padding-top:50px">Profile</h1>
 <div id="profileBox">
-{{#if somethingWentWrong}}
+    {{#if somethingWentWrong}}
     <h1>User does not exist!=(</h1>
-{{else}}
+    {{else}}
     {{#if user}}
-        {{#each user}}
-            <p>Email: {{email}}</p>
-            <p>Firstname: {{firstname}}</p>
-            <p>Lastname: {{lastname}}</p>
-            <p>Permissionlevel: {{permission_level}}</p>
-            <p>Registered: {{reg_date}}</p>
-        {{/each}}
+    {{#each user}}
+    <p>Email: {{email}}</p>
+    <p>Firstname: {{firstname}}</p>
+    <p>Lastname: {{lastname}}</p>
+    <p>Permissionlevel: {{permission_level}}</p>
+    <p>Registered: {{createdAt}}</p>
+    {{/each}}
     {{/if}}
 </div>
 
@@ -19,19 +19,19 @@
 </div>
 
 {{#if posts}}
-    {{#each posts}}
-        <div id="usersPost">
-            <h5>{{title}}</h5>
-            <h6>{{platform}}</h6>
-            <p>Posted: {{post_date}}</p>
-            {{#if last_update}} <p>Last update: {{last_update}}</p>{{/if}}
-            <p>Views: {{views}}</p>
-            <a href="/post/{{postid}}" class="btn btn-primary" id="checkOutPostBtn">Check out</a>
-        </div>  
-    {{/each}}
+{{#each posts}}
+<div id="usersPost">
+    <h5>{{title}}</h5>
+    <h6>{{platform}}</h6>
+    <p>Posted: {{createdAt}}</p>
+    {{#if updatedAt}} <p>Last update: {{updatedAt}}</p>{{/if}}
+    <p>Views: {{views}}</p>
+    <a href="/post/{{id}}" class="btn btn-primary" id="checkOutPostBtn">Check out</a>
+</div>
+{{/each}}
 {{else}}
-    <div id="noPosts">
-        <p>This user hasn't posted anything yet! =(</p>
-    </div>
+<div id="noPosts">
+    <p>This user hasn't posted anything yet! =(</p>
+</div>
 {{/if}}
 {{/if}}
