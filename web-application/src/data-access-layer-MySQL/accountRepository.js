@@ -44,8 +44,8 @@ module.exports = ({}) => {
                     credentials.lastname,
                     credentials.email
                 ],
-                error => {
-                    callback(error)
+                (error, registereduser) => {
+                    callback(error, registereduser.insertId)
                 }
             )
         },

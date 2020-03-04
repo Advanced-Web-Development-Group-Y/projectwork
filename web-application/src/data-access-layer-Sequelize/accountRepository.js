@@ -24,7 +24,7 @@ module.exports = ({}) => {
                     callback(null, [account])
                 })
                 .catch(error => {
-                    callback(error)
+                    callback(error, null)
                 })
         },
         getPasswordFromAccountByUsername: (username, callback) => {
@@ -36,7 +36,7 @@ module.exports = ({}) => {
                     callback(null, [account])
                 })
                 .catch(error => {
-                    callback(error)
+                    callback(error, null)
                 })
         },
         getAccountByUsername: (username, callback) => {
@@ -45,7 +45,7 @@ module.exports = ({}) => {
                     callback(null, [account])
                 })
                 .catch(error => {
-                    callback(error)
+                    callback(error, null)
                 })
         },
         register: (credentials, callback) => {
@@ -56,9 +56,11 @@ module.exports = ({}) => {
                 lastname: credentials.lastname,
                 email: credentials.email
             })
-                .then(callback(null))
+                .then(returned => {
+                    callback(null, returned.dataValues.id)
+                })
                 .catch(error => {
-                    callback(error)
+                    callback(error, null)
                 })
         }
     }

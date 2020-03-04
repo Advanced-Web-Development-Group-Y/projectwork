@@ -1,6 +1,5 @@
 /*Requires*/
 const express = require('express')
-const fileUpload = require('express-fileupload')
 const expressHandlebars = require('express-handlebars')
 const app = express()
 const routes = require('./general-router')
@@ -38,7 +37,6 @@ app.engine(
 )
 
 /*Middlewares*/
-app.use(fileUpload({ createParentPath: true }))
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use((request, response, next) => {

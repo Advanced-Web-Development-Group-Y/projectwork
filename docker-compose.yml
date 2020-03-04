@@ -1,7 +1,9 @@
 version: '3'
 services:
     web-application:
-        build: './web-application'
+        build:
+            context: 'web-application/'
+            dockerfile: './src/presentation-layer/Dockerfile'
         ports:
             - '8080:8080'
             - '9229:9229'
@@ -9,6 +11,18 @@ services:
             - './web-application/src:/web-application/src'
         depends_on:
             - database
+
+    rest-api:
+        build:
+            context: 'web-application/'
+            dockerfile: './src/presentation-layer-api/Dockerfile'
+        ports:
+            - '3000:3000'
+        volumes:
+            - './web-application/src:/web-application/src'
+        depends_on:
+            - database
+
     database:
         build: ./db
         ports:

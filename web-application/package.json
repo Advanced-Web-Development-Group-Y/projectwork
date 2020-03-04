@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "nodemon src/presentation-layer/app.js",
+        "startapi": "nodemon src/presentation-layer-api/app.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
@@ -19,6 +20,7 @@
         "express-fileupload": "^1.1.6",
         "express-handlebars": "^3.1.0",
         "express-session": "^1.17.0",
+        "jsonwebtoken": "^8.5.1",
         "multer": "^1.4.2",
         "mysql": "^2.18.1",
         "mysql2": "^2.1.0",

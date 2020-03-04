@@ -4,17 +4,40 @@ const saltRounds = 10
 module.exports = ({ accountRepository }) => {
     return {
         register: (credentials, callback) => {
-            if (credentials.password !== credentials.confirmpassword)
-                callback('Passwords dont match.')
-            else if (credentials.password < 6) callback('Password is to short')
+            if (
+                !(
+                    credentials.password &&
+                    credentials.firstname &&
+                    credentials.lastname &&
+                    credentials.email &&
+                    credentials.username
+                )
+            )
+                callback('Please fill in all inputs', null)
+            else if (credentials.password !== credentials.confirmpassword)
+                callback('Passwords dont match', null)
+            else if (credentials.firstname.length === 0)
+                callback('Firstname is to short', null)
+            else if (credentials.lastname.length === 0)
+                callback('Lastname is to short', null)
+            else if (credentials.email.length === 0)
+                callback('Email is to short', null)
+            else if (credentials.password < 6)
+                callback('Password is to short', null)
             else {
                 bcrypt.genSalt(saltRounds, (error, salt) => {
                     bcrypt.hash(credentials.password, salt, (error, hash) => {
                         if (error) {
-                            callback('ERROR')
+                            callback('Could not encrypt password', null)
                         } else {
                             credentials.password = hash
-                            accountRepository.register(credentials, callback)
+                            accountRepository.register(
+                                credentials,
+                                (error, id) => {
+                                    if (error) callback(error, null)
+                                    else callback(null, id)
+                                }
+                            )
                         }
                     })
                 })
@@ -39,7 +62,7 @@ module.exports = ({ accountRepository }) => {
                                         callback
                                     )
                                 } else {
-                                    callback(['Wrong credentials.'], null)
+                                    callback('Wrong credentials', null)
                                 }
                             }
                         )
@@ -51,6 +74,6 @@ module.exports = ({ accountRepository }) => {
             accountRepository.getAllPostsByUser(userid, (error, posts) => {
                 callback(error, posts)
             })
-        },
+        }
     }
 }
