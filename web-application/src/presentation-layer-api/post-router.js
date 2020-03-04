@@ -35,7 +35,7 @@ module.exports = ({ postManager }) => {
     router.post('/post/new', (request, response) => {
         //needs idtoken implementation
         if (!request.headers.authorization) {
-            response.status(403).json({ error: 'No credentials sent' })
+            response.status(403).json({ error: 'No credentials recieved' })
         }
         var userId
         jwt.verify(
