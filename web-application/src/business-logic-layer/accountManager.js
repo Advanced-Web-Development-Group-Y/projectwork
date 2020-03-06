@@ -47,6 +47,10 @@ module.exports = ({ accountRepository }) => {
             accountRepository.getAccountById(id, callback)
         },
         login: (credentials, callback) => {
+            if (!credentials.password || !credentials.username) {
+                callback('Provide credentials', null)
+                return
+            }
             accountRepository.getPasswordFromAccountByUsername(
                 credentials.username,
                 (error, result) => {

@@ -1,17 +1,5 @@
-const mysql = require('mysql')
-
+const con = require('./db-connect')
 module.exports = ({}) => {
-    const con = mysql.createConnection({
-        host: 'database',
-        user: 'root',
-        port: '3306',
-        password: 'elpassword123',
-        database: 'webAppDatabase'
-    })
-    con.connect(error => {
-        if (error) console.log(error)
-        else console.log('Accountrepository connected to DB!')
-    })
     return {
         getAccountById: (id, callback) => {
             const query =

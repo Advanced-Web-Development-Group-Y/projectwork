@@ -2,7 +2,7 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
 const app = express()
-const routes = require('./general-router')
+const generalRouter = require('./general-router')
 const path = require('path')
 const redis = require('redis')
 const session = require('express-session')
@@ -38,6 +38,7 @@ app.engine(
 
 /*Middlewares*/
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
 app.use((request, response, next) => {
     response.locals.isLoggedIn = request.session.isLoggedIn
@@ -73,9 +74,17 @@ container.register('postManager', awilix.asFunction(postManager))
 container.register('postRouter', awilix.asFunction(postRouter))
 
 const thePostRouter = container.resolve('postRouter')
+
+/*API dependency*/
+const apiRouter = require('../presentation-layer/api-router')
+container.register('apiRouter', awilix.asFunction(apiRouter))
+
+const theApiRouter = container.resolve('apiRouter')
+
+app.use('/api', theApiRouter)
 app.use(theAccountRouter)
 app.use(thePostRouter)
-app.use('/', routes)
+app.use(generalRouter)
 
 app.listen(8080, () => {
     console.log('Web application listening on port 8080.')

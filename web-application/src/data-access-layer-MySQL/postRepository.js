@@ -1,17 +1,6 @@
-const mysql = require('mysql')
+const con = require('./db-connect')
 
 module.exports = ({}) => {
-    const con = mysql.createConnection({
-        host: 'database',
-        user: 'root',
-        port: '3306',
-        password: 'elpassword123',
-        database: 'webAppDatabase'
-    })
-    con.connect(error => {
-        if (error) console.log(error)
-        else console.log('Postrepository connected to DB!')
-    })
     return {
         getAllPosts: callback => {
             const query = 'SELECT * FROM posts'
