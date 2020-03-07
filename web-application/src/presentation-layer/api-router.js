@@ -13,7 +13,6 @@ module.exports = ({ postManager, accountManager }) => {
             )
 
             request.payload = jwt.verify(accessTokenString, private_key)
-            console.log(request.payload)
         } catch (e) {
             //Access token is broken
         }
@@ -48,7 +47,7 @@ module.exports = ({ postManager, accountManager }) => {
     router.post('/post/new', (request, response) => {
         //needs idtoken implementation
         if (!request.payload) {
-            response.status(403).json({ error: 'No accesstoken recieved' })
+            response.status(403).json({ error: 'Invalid token' })
         }
         var userId
         jwt.verify(
@@ -79,6 +78,9 @@ module.exports = ({ postManager, accountManager }) => {
     })
 
     router.put('/post/update/:id', (request, response) => {
+        if (!request.payload) {
+            response.status(403).json({ error: 'Invalid token' })
+        }
         const post = {
             title: request.body.title,
             content: request.body.content,
@@ -110,14 +112,32 @@ module.exports = ({ postManager, accountManager }) => {
             }
         })
     })
-    router.post('/login', (request, response) => {
-        accountManager.login(request.body, (error, user) => {
+    router.post('/tokens', (request, response) => {
+        const grant_type = request.body.grant_type
+        const credentials = {
+            username: request.body.username,
+            password: request.body.password
+        }
+        if (grant_type != 'password') {
+            response.status(400).json({ error: 'unsupported_grant_type' })
+            return
+        }
+        accountManager.login(credentials, (error, user) => {
             if (error) {
-                response.status(401).send({ error })
+                response.status(400).send({ error: 'invalid_grant' })
             } else {
-                jwt.sign({ userid: user.id }, private_key, (error, token) => {
+                jwt.sign({ id: user[0].id }, private_key, (error, token) => {
                     if (error) response.status(500).send({ error })
-                    else response.status(200).send({ token })
+                    else {
+                        const idToken = jwt.sign(
+                            { id: user[0].id, email: user[0].email },
+                            private_key
+                        )
+                        response.status(200).send({
+                            access_token: token,
+                            id_token: idToken
+                        })
+                    }
                 })
             }
         })
