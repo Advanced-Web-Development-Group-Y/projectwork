@@ -23,3 +23,12 @@ services:
         command: redis-server --requirepass elpassword123
         ports:
             - '6379:6379'
+    spa:
+        build: './nginx'
+        ports:
+            - '8000:80'
+        volumes:
+            - './nginx:/nginx'
+        environment:
+            - NGINX_HOST=webSPA
+            - NGINX_PORT=80

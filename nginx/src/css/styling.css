@@ -1,0 +1,18 @@
+div {
+    background-color: orange;
+    width: fit-content;
+}
+main > div {
+    display: none;
+}
+
+main > div.current-page {
+    display: block;
+}
+body.isLoggedOut .showIfLoggedIn {
+    display: none;
+}
+
+body.isLoggedIn .showIfLoggedOut {
+    display: none;
+}

@@ -13,11 +13,19 @@ module.exports = ({ postManager, accountManager }) => {
             )
 
             request.payload = jwt.verify(accessTokenString, private_key)
-        } catch (e) {
-            //Access token is broken
+        } catch (error) {
+            //error
         }
         next()
     })
+    router.use(function(request, response, next) {
+        response.setHeader('Access-Control-Allow-Origin', '*')
+        response.setHeader('Access-Control-Allow-Methods', '*')
+        response.setHeader('Access-Control-Allow-Headers', '*')
+        response.setHeader('Access-Control-Expose-Headers', '*')
+        next()
+    })
+
     router.get('/posts', (request, response) => {
         postManager.getAllPosts((error, posts) => {
             if (error) {

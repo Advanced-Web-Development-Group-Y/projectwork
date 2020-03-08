@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="js/navigation-handler.js" defer></script>
+        <script src="js/authentication.js" defer></script>
+        <link rel="stylesheet" href="css/styling.css" />
+        <title>not document</title>
+    </head>
+    <body>
+        <header>
+            Mrkt
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="/">View posts</a></li>
+                <li class="showIfLoggedIn">
+                    <a href="/add-post">Add post</a>
+                </li>
+                <li class="showIfLoggedOut"><a href="/login">Login</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <div id="home-page">
+                <h1>Pet</h1>
+                <div>Name: <span class="name"></span></div>
+                <div>Id: <span class="id"></span></div>
+            </div>
+
+            <div id="about-page">
+                <h1>About</h1>
+                <p>This is the about page...</p>
+            </div>
+
+            <div id="add-post-page">
+                <h1>Add post</h1>
+                <form action="">
+                    <div>Title: <input type="text" class="name" /></div>
+                    <div>Content: <input type="text" class="name" /></div>
+                    <div>Platform: <input type="text" class="name" /></div>
+
+                    <input type="submit" value="Create" />
+                </form>
+            </div>
+
+            <div id="login-page">
+                <h1>Login</h1>
+                <form action="">
+                    <div>Username: <input type="text" class="username" /></div>
+                    <div>Password: <input type="text" class="password" /></div>
+                    <input type="submit" value="Login" />
+                </form>
+            </div>
+
+            <div id="error-page">
+                <h1>Error</h1>
+                <p>Oups, something went wrong ^^'</p>
+            </div>
+        </main>
+
+        <footer>
+            MRKT | Copyright 2020 MRKT INC. |
+            <a href="/about">About</a>
+        </footer>
+    </body>
+</html>
