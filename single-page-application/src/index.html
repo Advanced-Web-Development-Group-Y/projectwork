@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <script src="js/navigation-handler.js" defer></script>
         <script src="js/authentication.js" defer></script>
+        <script src="js/posts.js"></script>
         <link rel="stylesheet" href="css/styling.css" />
         <title>not document</title>
     </head>
@@ -25,9 +26,13 @@
 
         <main>
             <div id="home-page">
-                <h1>Pet</h1>
-                <div>Name: <span class="name"></span></div>
-                <div>Id: <span class="id"></span></div>
+                <div class="postContainer">
+                    <h1>Title</h1>
+                    <p>content</p>
+                    <p>date</p>
+                    <p>platform</p>
+                </p>
+                </div>
             </div>
 
             <div id="about-page">
@@ -50,7 +55,10 @@
                 <h1>Login</h1>
                 <form action="">
                     <div>Username: <input type="text" class="username" /></div>
-                    <div>Password: <input type="text" class="password" /></div>
+                    <div>
+                        Password: <input type="password" class="password" />
+                    </div>
+                    <p id="errorText"></p>
                     <input type="submit" value="Login" />
                 </form>
             </div>

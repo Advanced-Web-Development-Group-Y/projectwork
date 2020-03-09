@@ -1,16 +1,21 @@
 const login = accessToken => {
+    if (accessToken === undefined) return
     localStorage.setItem('accessToken', accessToken)
     document.body.classList.remove('isLoggedOut')
     document.body.classList.add('isLoggedIn')
+    goToPage('/')
 }
 const logout = () => {
     localStorage.removeItem('accessToken')
     document.body.classList.remove('isLoggedIn')
     document.body.classList.add('isLoggedOut')
 }
-
+const setError = error => {
+    document.getElementById('errorText').innerText = error
+}
 document.querySelector('#login-page form').addEventListener('submit', event => {
     event.preventDefault()
+    document.getElementById('errorText').innerText = ''
     const username = document.querySelector('#login-page .username').value
     const password = document.querySelector('#login-page .password').value
 
@@ -24,6 +29,7 @@ document.querySelector('#login-page form').addEventListener('submit', event => {
     })
         .then(response => {
             // TODO: Check status code to see if it succeeded. Display errors if it failed.
+            if (response.status === 400) throw 'Invalid username or password'
             return response.json()
         })
         .then(body => {
@@ -31,7 +37,7 @@ document.querySelector('#login-page form').addEventListener('submit', event => {
             login(body.access_token)
         })
         .catch(error => {
-            console.log(error)
+            setError(error)
         })
 })
 if (localStorage.getItem('accessToken')) {

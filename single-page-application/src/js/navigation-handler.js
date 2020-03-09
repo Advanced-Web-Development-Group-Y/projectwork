@@ -13,7 +13,7 @@ const changeToPage = url => {
     // TODO: Factor out common code in all branches.
     if (url == '/') {
         document.getElementById('home-page').classList.add('current-page')
-        //fetchAllPets()
+        fetchPosts()
     } else if (url == '/about') {
         document.getElementById('about-page').classList.add('current-page')
     } else if (url == '/login') {

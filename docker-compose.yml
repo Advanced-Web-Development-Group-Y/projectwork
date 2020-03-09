@@ -24,11 +24,11 @@ services:
         ports:
             - '6379:6379'
     spa:
-        build: './nginx'
+        build: './single-page-application'
         ports:
             - '8000:80'
         volumes:
-            - './nginx:/nginx'
+            - './single-page-application:/single-page-application'
         environment:
             - NGINX_HOST=webSPA
             - NGINX_PORT=80
