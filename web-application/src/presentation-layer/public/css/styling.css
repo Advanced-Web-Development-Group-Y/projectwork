@@ -36,7 +36,7 @@ h1 {
 
 .card .card-title {
     line-height: 1em;
-    height: 3em; 
+    height: 3em;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -48,7 +48,7 @@ h1 {
     margin-top: 10px;
     line-height: 1em;
     height: 2em;
-    overflow: hidden; 
+    overflow: hidden;
 }
 
 #postContent {
@@ -92,23 +92,32 @@ h1 {
     width: 60%;
     margin: auto;
 }
-
+#currencyInput {
+    width: 60%;
+    margin: auto;
+}
+#priceInput {
+    width: 60%;
+    margin: auto;
+}
 #descriptionInput {
     width: 60%;
     margin: auto;
 }
 
-form[method="POST"] button[type="SUBMIT"] {
+form[method='POST'] button[type='SUBMIT'] {
     width: 10%;
     margin-left: 45%;
     margin-right: 45%;
 }
-
+#titleInputLabel p {
+    margin-right: 50%;
+}
 #titleInputLabel p {
     margin-right: 50%;
 }
 
-form[id="updatePost"] p {
+form[id='updatePost'] p {
     font-style: italic;
     text-align: center;
 }
@@ -119,16 +128,14 @@ form[id="updatePost"] p {
     margin-top: 2%;
 }
 
-select[class="form-control form-control-lg"] {
+select[class='form-control form-control-lg'] {
     width: 30%;
     margin: auto;
 }
 
-input[class="form-control-file"] {
+input[class='form-control-file'] {
     margin-left: 45%;
 }
-
-
 
 #deleteBtn {
     display: inline-block;
@@ -154,7 +161,7 @@ input[class="form-control-file"] {
     margin-bottom: 1%;
 }
 
-#buttons a[class="btn btn-primary"]{
+#buttons a[class='btn btn-primary'] {
     overflow: hidden;
 }
 

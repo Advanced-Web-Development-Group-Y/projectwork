@@ -3,20 +3,25 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="js/loader.js" defer></script>
+        <script src="js/posts.js" defer></script>
         <script src="js/navigation-handler.js" defer></script>
         <script src="js/authentication.js" defer></script>
-        <script src="js/posts.js"></script>
         <link rel="stylesheet" href="css/styling.css" />
+        <link
+            href="https://fonts.googleapis.com/css?family=Noto+Sans:700&display=swap"
+            rel="stylesheet"
+        />
         <title>not document</title>
     </head>
     <body>
         <header>
-            Mrkt
+            MRKT
         </header>
 
         <nav>
             <ul>
-                <li><a href="/">View posts</a></li>
+                <li><a href="/">Home</a></li>
                 <li class="showIfLoggedIn">
                     <a href="/add-post">Add post</a>
                 </li>
@@ -26,13 +31,8 @@
 
         <main>
             <div id="home-page">
-                <div class="postContainer">
-                    <h1>Title</h1>
-                    <p>content</p>
-                    <p>date</p>
-                    <p>platform</p>
-                </p>
-                </div>
+                <div class="posts-container"></div>
+                <div class="loader" id="homeloader"></div>
             </div>
 
             <div id="about-page">
@@ -43,11 +43,16 @@
             <div id="add-post-page">
                 <h1>Add post</h1>
                 <form action="">
-                    <div>Title: <input type="text" class="name" /></div>
-                    <div>Content: <input type="text" class="name" /></div>
-                    <div>Platform: <input type="text" class="name" /></div>
+                    <div>Title: <br /><input type="text" class="title" /></div>
+                    <div>
+                        Content: <br /><input type="text" class="content" />
+                    </div>
+                    <div>
+                        Platform: <br /><input type="text" class="platform" />
+                    </div>
 
-                    <input type="submit" value="Create" />
+                    <input id="addPostButton" type="submit" value="Create" />
+                    <div class="loader" id="addloader"></div>
                 </form>
             </div>
 
@@ -63,8 +68,9 @@
                 </form>
             </div>
             <div id="post-page">
-
-            </p>
+                <div id="post-container"></div>
+                <div class="loader" id="postloader"></div>
+            </div>
             <div id="error-page">
                 <h1>Error</h1>
                 <p>Oups, something went wrong ^^'</p>

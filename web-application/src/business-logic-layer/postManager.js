@@ -19,7 +19,13 @@ module.exports = ({ postRepository }) => {
         },
 
         addPost: (post, callback) => {
-            if (!post.title || !post.content || !post.platform)
+            if (
+                !post.title ||
+                !post.content ||
+                !post.platform ||
+                !post.currency ||
+                !post.price
+            )
                 callback('Fill in all inputs')
             else if (post.title.length < 5)
                 callback('Title must be atleast 5 characters long')

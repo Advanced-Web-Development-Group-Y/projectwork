@@ -54,7 +54,8 @@ module.exports = ({ accountRepository }) => {
             accountRepository.getPasswordFromAccountByUsername(
                 credentials.username,
                 (error, result) => {
-                    if (result.length === 0) error = 'Wrong credentials'
+                    if (result === undefined || result.length === 0)
+                        error = 'Wrong credentials'
                     if (!error) {
                         bcrypt.compare(
                             credentials.password,

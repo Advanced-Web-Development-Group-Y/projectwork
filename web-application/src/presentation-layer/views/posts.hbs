@@ -31,9 +31,9 @@
             <div class="card-body">
                 <h5 class="card-title">{{title}}</h5>
 
-                <p style="margin: 0;">Posted: {{createdAt}}</p>
+                <p style="margin: 0;"><strong>{{price}} {{currency}}</strong></p>
 
-                <p class="card-platform">Game: {{platform}}</p>
+                <p class="card-platform">{{platform}}</p>
                 {{#if ../isLoggedIn}}
                 <a href="/post/{{id}}" class="btn btn-primary">Check it out</a>
                 {{/if}}

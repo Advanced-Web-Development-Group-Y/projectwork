@@ -17,10 +17,17 @@ module.exports = ({}) => {
 
         addPost: (post, callback) => {
             const query =
-                'INSERT INTO posts(title, content, posterid, platform)VALUES(?, ?, ?, ?);'
+                'INSERT INTO posts(title, content, posterid, platform,currency,price)VALUES(?, ?, ?, ?,?,?);'
             con.query(
                 query,
-                [post.title, post.content, post.posterid, post.platform],
+                [
+                    post.title,
+                    post.content,
+                    post.posterid,
+                    post.platform,
+                    post.currency,
+                    post.price
+                ],
                 error => {
                     callback(error)
                 }
@@ -30,13 +37,25 @@ module.exports = ({}) => {
         updatePost: (post, callback) => {
             const query = `UPDATE posts 
         SET title = ?, 
-        content = ?, 
+        content = ?,
+        currency = ?,
+        price = ?,
         updatedAt = CURRENT_TIMESTAMP 
         WHERE id = ?`
 
-            con.query(query, [post.title, post.content, post.postid], error => {
-                callback(error)
-            })
+            con.query(
+                query,
+                [
+                    post.title,
+                    post.content,
+                    post.currency,
+                    post.price,
+                    post.postid
+                ],
+                error => {
+                    callback(error)
+                }
+            )
         },
 
         deletePostById: (id, callback) => {

@@ -36,5 +36,9 @@ document.body.addEventListener('click', event => {
         goToPage(url)
     }
 })
+window.addEventListener('popstate', function(event) {
+    const url = location.pathname
+    changeToPage(url)
+})
 
 changeToPage(location.pathname)

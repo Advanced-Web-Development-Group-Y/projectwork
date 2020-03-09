@@ -2,7 +2,7 @@
 
 <section id="container">
     <div id="filters">
-        <form method="POST" action="/post/new" enctype="multipart/form-data">
+        <form method="POST" action="/post/new">
             <h3>Add new</h3>
             <div class="form-group">
                 <label for="titleInput">Title</label>
@@ -12,11 +12,21 @@
             <div class="form-group">
                 <label for="descriptionInput">Description</label>
                 <textarea class="form-control" id="descriptionInput" rows="3"
-                    name="descriptionInput">{{#if post}}{{post.description}}{{/if}}</textarea>
+                    name="description">{{#if post}}{{post.description}}{{/if}}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="currencyInput">Currency</label>
+                <input type="text" class="form-control form-control-lg" id="currencyInput" name="currency"
+                    {{#if post}}value="{{post.currency}}" {{/if}}>
+            </div>
+            <div class="form-group">
+                <label for="priceInput">Price</label>
+                <input class="form-control form-control-lg" type="number" {{#if post}}value="{{post.currency}}" {{/if}}
+                    id="priceInput" name="price">
             </div>
             <div class="form-group">
                 <label for="platformInput">Game/Platform</label>
-                <select class="form-control form-control-lg" id="platformInput" name="platformInput"
+                <select class="form-control form-control-lg" id="platformInput" name="platform"
                     {{#if post}}value="{{post.platform}}" {{/if}}>
                     <option>-</option>
                     <option>Counter-Strike: Global Offensive</option>

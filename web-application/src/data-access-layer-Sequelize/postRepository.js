@@ -8,7 +8,9 @@ const Post = sequelize.define('posts', {
     content: Seqeuelize.TEXT,
     posterid: Seqeuelize.INTEGER,
     platform: Seqeuelize.TEXT,
-    views: Seqeuelize.INTEGER
+    views: Seqeuelize.INTEGER,
+    currency: sequelize.TEXT,
+    price: Seqeuelize.INTEGER
 })
 
 sequelize.sync()
@@ -37,7 +39,9 @@ module.exports = ({}) => {
                 title: post.title,
                 content: post.content,
                 posterid: post.posterid,
-                platform: post.platform
+                platform: post.platform,
+                currency: post.currency,
+                price: post.price
             })
                 .then(callback(null))
                 .catch(error => {
@@ -46,7 +50,12 @@ module.exports = ({}) => {
         },
         updatePost: (post, callback) => {
             Post.update(
-                { title: post.title, content: post.content },
+                {
+                    title: post.title,
+                    content: post.content,
+                    currency: post.currency,
+                    price: post.price
+                },
                 { where: { id: post.postid } }
             )
                 .then(callback(null))

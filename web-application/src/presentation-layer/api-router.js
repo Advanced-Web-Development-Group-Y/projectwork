@@ -80,7 +80,7 @@ module.exports = ({ postManager, accountManager }) => {
             if (error) {
                 response.status(500).send({ error })
             } else {
-                response.status(200).send({ status: 'Created' })
+                response.status(200).send({ id: post.id })
             }
         })
     })

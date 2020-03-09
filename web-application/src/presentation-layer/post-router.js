@@ -66,7 +66,9 @@ module.exports = ({ postManager }) => {
                 const post = {
                     id: fetchedPost[0].id,
                     title: fetchedPost[0].title,
-                    content: fetchedPost[0].content
+                    content: fetchedPost[0].content,
+                    currency: fetchedPost[0].currency,
+                    price: fetchedPost[0].price
                 }
                 response.render('updatepost.hbs', { post })
             }
@@ -86,8 +88,10 @@ module.exports = ({ postManager }) => {
         var post = {
             posterid: request.session.user[0].id,
             title: request.body.title,
-            content: request.body.descriptionInput,
-            platform: request.body.platformInput
+            content: request.body.description,
+            platform: request.body.platform,
+            currency: request.body.currency,
+            price: request.body.price
         }
         postManager.addPost(post, error => {
             if (error) {
@@ -100,8 +104,10 @@ module.exports = ({ postManager }) => {
 
     router.post('/post/update/:id', (request, response) => {
         const post = {
-            title: request.body.titleInput,
-            content: request.body.descriptionInput,
+            title: request.body.title,
+            content: request.body.description,
+            currency: request.body.currency,
+            price: request.body.price,
             postid: request.params.id
         }
         postManager.updatePost(post, error => {
