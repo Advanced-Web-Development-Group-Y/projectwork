@@ -21,7 +21,7 @@ const changeToPage = url => {
     } else if (new RegExp('^/post/[0-9]+$').test(url)) {
         document.getElementById('post-page').classList.add('current-page')
         const id = url.split('/')[2]
-        //fetchPet(id)
+        fetchPost(id)
     } else if (url == '/add-post') {
         document.getElementById('add-post-page').classList.add('current-page')
     } else {
