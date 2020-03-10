@@ -97,7 +97,7 @@ const setDeletePostPage = id => {
     document.querySelector('#delete-post-page .id').value = id
 }
 const addPost = post => {
-    document.getElementById('updatePostButton').disabled = true
+    document.getElementById('addPostButton').disabled = true
     toggleLoader('addloader')
     fetch('http://localhost:8080/api/post/', {
         method: 'POST',
@@ -125,7 +125,7 @@ const addPost = post => {
         })
 }
 const updatePost = post => {
-    document.getElementById('addPostButton').disabled = true
+    document.getElementById('updatePostButton').disabled = true
     toggleLoader('updateloader')
     fetch('http://localhost:8080/api/post/' + post.id, {
         method: 'PUT',
@@ -148,7 +148,7 @@ const updatePost = post => {
             console.log(error)
         })
         .then(() => {
-            document.getElementById('addPostButton').disabled = false
+            document.getElementById('updatePostButton').disabled = false
             toggleLoader('updateloader')
         })
 }

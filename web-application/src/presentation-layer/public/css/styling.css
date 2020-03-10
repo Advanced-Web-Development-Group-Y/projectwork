@@ -146,30 +146,6 @@ input[class='form-control-file'] {
     margin-left: 45%;
 }
 
-#deleteBtn {
-    display: inline-block;
-    background-color: red;
-    color: black;
-    font-size: 90%;
-    border-color: black;
-    border-radius: 5px;
-}
-
-#deleteBtn:hover {
-    background-color: black;
-    color: red;
-    border-color: red;
-}
-
-#updateBtn {
-    display: inline-block;
-    border-color: black;
-    font-size: 90%;
-    color: black;
-    margin-top: 1%;
-    margin-bottom: 1%;
-}
-
 #buttons a[class='btn btn-primary'] {
     overflow: hidden;
 }
@@ -197,6 +173,7 @@ input[class='form-control-file'] {
     padding: 1%;
     width: 70%;
     margin: auto;
+    margin-top: 15px;
 }
 
 #usersPostTitle {

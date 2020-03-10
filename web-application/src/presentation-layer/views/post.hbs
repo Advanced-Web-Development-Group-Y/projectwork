@@ -14,21 +14,19 @@
     <div id="game">
         <h4>Game: {{platform}}</h4>
     </div>
+
     <div id="posttime">
         <p>Posted: {{createdAt}}</p>
         {{#if updatedAt}}<p>Last Update: {{updatedAt}}</p>{{/if}}
     </div>
-
-    {{#if ../canUserEditPost}}
     <div id="buttons">
-        <div id="updateBtn">
-            <a href="/post/update/{{id}}" class="btn btn-primary" id="updateBtn">Update Post</a>
-        </div>
-        <div id="deleteBtn">
-            <a href="/post/delete/{{id}}" class="btn btn-primary" id="deleteBtn">Delete Post</a>
-        </div>
+        <a href="/profile/{{posterid}}" class="btn btn-primary" id="contactBtn">Contact</a>
+        {{#if ../canUserEditPost}}
+        <a href="/post/update/{{id}}" class="btn btn-primary" id="updateBtn">Update Post</a>
+        <a href="/post/delete/{{id}}" class="btn btn-primary" id="deleteBtn">Delete Post</a>
+        {{/if}}
     </div>
-    {{/if}}
+
     {{/each}}
     {{/if}}
     <div id="owner">
