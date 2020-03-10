@@ -1,7 +1,12 @@
 <div id="postContent">
+    {{#if somethingWentWrong}}
+    <h1>Sorry, that post does not exist.</h1>
+    {{/if}}
     {{#if post.length}}
     <h1>Post</h1>
-    <a href="/profile/{{owner.id}}">{{owner.username}}</a>
+    <div id="owner">
+        <a href="/profile/{{owner.id}}">{{owner.username}}</a>
+    </div>
     {{#each post}}
     <div id="title">
         <h1>{{title}}</h1>
@@ -21,7 +26,6 @@
         {{#if updatedAt}}<p>Last Update: {{updatedAt}}</p>{{/if}}
     </div>
     <div id="buttons">
-        <a href="/profile/{{posterid}}" class="btn btn-primary" id="contactBtn">Contact</a>
         {{#if ../canUserEditPost}}
         <a href="/post/update/{{id}}" class="btn btn-primary" id="updateBtn">Update Post</a>
         <a href="/post/delete/{{id}}" class="btn btn-primary" id="deleteBtn">Delete Post</a>
@@ -35,7 +39,7 @@
     <form method="POST" action="/comment/add/{{id}}">
         <div class="form-group">
             <label for="commentInput">Comment</label>
-            <input type="text" class="form-control form-control-lg" id="commentInput" name="content">
+            <textarea class="form-control" id="commentInput" rows="3" name="content" style="resize: none;"></textarea>
         </div>
 
         <button type="submit" class="btn btn-primary">Comment</button>
@@ -58,12 +62,21 @@
         <p>{{content}}</p>
         {{#if updatedAt}}
         <p>Updated: {{updatedAt}}</p>
+
         {{else}}
         <p>{{createdAt}}</p>
         {{/if}}
+        {{#if ../isAdmin}}
+        <a href="/comment/update/{{id}}" class="btn btn-primary">Update</a>
+        <a href="/comment/delete/{{id}}" class="btn btn-primary">Delete</a>
+        {{/if}}
     </div>
+
     {{/each}}
 </div>
 {{else}}
+{{#if somethingWentWrong}}
+{{else}}
 <h1>No comments</h1>
+{{/if}}
 {{/if}}

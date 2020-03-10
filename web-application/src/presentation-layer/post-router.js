@@ -84,12 +84,16 @@ module.exports = ({ postManager, commentManager, accountManager }) => {
                                         }
                                         response.render('post.hbs', model)
                                     } else {
+                                        let isAdmin =
+                                            request.session.user[0]
+                                                .permission_level === 1
                                         const model = {
                                             somethingWentWrong: false,
                                             canUserEditPost: canEditPost,
                                             post,
                                             comments,
-                                            owner: owner[0]
+                                            owner: owner[0],
+                                            isAdmin
                                         }
                                         response.render('post.hbs', model)
                                     }

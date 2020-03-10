@@ -118,12 +118,16 @@ module.exports = ({}) => {
                 if (error) {
                     callback(error)
                 } else {
-                    let count = viewCount[0].views + 1
-                    query = `UPDATE posts SET views = ? WHERE id = ?`
+                    if (viewCount.length > 0) {
+                        let count = viewCount[0].views + 1
+                        query = `UPDATE posts SET views = ? WHERE id = ?`
 
-                    con.query(query, [count, postid], error => {
-                        callback(error)
-                    })
+                        con.query(query, [count, postid], error => {
+                            callback(error)
+                        })
+                    } else {
+                        callback('Invalid id')
+                    }
                 }
             })
         }

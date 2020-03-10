@@ -18,7 +18,11 @@ module.exports = ({ postRepository }) => {
         getPost: (id, callback) => {
             // authorization
             postRepository.getPost(id, (error, post) => {
-                callback(error, post)
+                if (post.length > 0) {
+                    callback(error, post)
+                } else {
+                    callback('Invalid id')
+                }
             })
         },
 
