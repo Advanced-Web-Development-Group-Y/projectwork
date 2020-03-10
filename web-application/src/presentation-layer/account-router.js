@@ -1,5 +1,5 @@
 const express = require('express')
-module.exports = ({ accountManager }) => {
+module.exports = ({ accountManager, postManager }) => {
     const router = express.Router()
 
     router.get('/profile', (request, response) => {
@@ -18,7 +18,7 @@ module.exports = ({ accountManager }) => {
                 }
                 response.render('profile.hbs', model)
             } else {
-                accountManager.getAllPostsByUser(
+                postManager.getAllPostsByUser(
                     request.params.id,
                     (error, posts) => {
                         if (error) {

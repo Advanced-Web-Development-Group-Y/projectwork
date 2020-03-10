@@ -3,7 +3,7 @@ module.exports = ({}) => {
     return {
         getAccountById: (id, callback) => {
             const query =
-                'SELECT email,username,firstname,lastname,permission_level,createdAt FROM accounts WHERE id = ?'
+                'SELECT id,email,username,firstname,lastname,permission_level,createdAt FROM accounts WHERE id = ?'
             con.query(query, id, (error, account) => {
                 callback(error, account)
             })
@@ -36,13 +36,6 @@ module.exports = ({}) => {
                     callback(error, registereduser.insertId)
                 }
             )
-        },
-
-        getAllPostsByUser: (userid, callback) => {
-            const query = `SELECT * FROM posts WHERE posterid = ?`
-            con.query(query, userid, (error, posts) => {
-                callback(error, posts)
-            })
         }
     }
 }

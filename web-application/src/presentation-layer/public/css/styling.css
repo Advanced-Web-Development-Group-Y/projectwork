@@ -207,3 +207,8 @@ input[class='form-control-file'] {
     bottom: 0;
     right: 0;
 }
+.commentContaner {
+    border: 1px solid black;
+    margin: 15px;
+    padding: 50px;
+}

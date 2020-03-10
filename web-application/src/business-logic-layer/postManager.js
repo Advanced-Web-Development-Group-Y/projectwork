@@ -5,6 +5,16 @@ module.exports = ({ postRepository }) => {
                 callback(error, posts)
             })
         },
+        getAllPostsByUser: (userid, callback) => {
+            accountRepository.getAllPostsByUser(userid, (error, posts) => {
+                callback(error, posts)
+            })
+        },
+        getAllFilteredPosts: (query, callback) => {
+            postRepository.getAllFilteredPosts(query, (error, posts) => {
+                callback(error, posts)
+            })
+        },
         getPost: (id, callback) => {
             // authorization
             postRepository.getPost(id, (error, post) => {
@@ -32,8 +42,9 @@ module.exports = ({ postRepository }) => {
             else if (post.title.length > 200)
                 callback('Title cannot be more than 200 characters long')
             else if (post.content.length < 10)
-                callback('The description must be atleast 10 characters long')
-            else if (post.platform == '-') callback('You must choose a game!')
+                callback('The content must be atleast 10 characters long')
+            else if (post.platform.length < 1)
+                callback('You must choose a platform!')
             else {
                 postRepository.addPost(post, callback)
             }

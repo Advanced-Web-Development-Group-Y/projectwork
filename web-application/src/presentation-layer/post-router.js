@@ -1,23 +1,40 @@
 const express = require('express')
 
-module.exports = ({ postManager }) => {
+module.exports = ({ postManager, commentManager, accountManager }) => {
     const router = express.Router()
 
     router.get('/posts', (request, response) => {
-        postManager.getAllPosts((error, posts) => {
-            if (error) {
-                const model = {
-                    error
+        if (request.query.keyword || request.query.platform) {
+            postManager.getAllFilteredPosts(request.query, (error, posts) => {
+                if (error) {
+                    const model = {
+                        somethingWentWrong: true
+                    }
+                    response.render('posts.hbs', model)
+                } else {
+                    const model = {
+                        somethingWentWrong: false,
+                        posts
+                    }
+                    response.render('posts.hbs', model)
                 }
-                response.render('posts.hbs', model)
-            } else {
-                const model = {
-                    isLoggedIn: request.session.isLoggedIn,
-                    posts
+            })
+        } else {
+            postManager.getAllPosts((error, posts) => {
+                if (error) {
+                    const model = {
+                        somethingWentWrong: true
+                    }
+                    response.render('posts.hbs', model)
+                } else {
+                    const model = {
+                        somethingWentWrong: false,
+                        posts
+                    }
+                    response.render('posts.hbs', model)
                 }
-                response.render('posts.hbs', model)
-            }
-        })
+            })
+        }
     })
 
     router.get('/post/new', (request, response) => {
@@ -47,13 +64,40 @@ module.exports = ({ postManager }) => {
                 if (request.session.user[0].permission_level === 1) {
                     canEditPost = true
                 }
-
-                const model = {
-                    somethingWentWrong: false,
-                    canUserEditPost: canEditPost,
-                    post
-                }
-                response.render('post.hbs', model)
+                accountManager.getAccountById(
+                    post[0].posterid,
+                    (error, owner) => {
+                        if (error) {
+                            const model = {
+                                somethingWentWrong: true
+                            }
+                            response.render('post.hbs', model)
+                        } else {
+                            commentManager.getPostCommentsByPostId(
+                                postid,
+                                (error, comments) => {
+                                    if (error) {
+                                        const model = {
+                                            somethingWentWrong: true,
+                                            canUserEditPost: canEditPost,
+                                            post
+                                        }
+                                        response.render('post.hbs', model)
+                                    } else {
+                                        const model = {
+                                            somethingWentWrong: false,
+                                            canUserEditPost: canEditPost,
+                                            post,
+                                            comments,
+                                            owner: owner[0]
+                                        }
+                                        response.render('post.hbs', model)
+                                    }
+                                }
+                            )
+                        }
+                    }
+                )
             }
         })
     })
@@ -79,6 +123,8 @@ module.exports = ({ postManager }) => {
     router.get('/post/delete/:id', (request, response) => {
         postManager.deletePostById(request.params.id, error => {
             if (error) {
+                console.log(error)
+
                 response.redirect('/posts')
             } else {
                 response.redirect('/posts')

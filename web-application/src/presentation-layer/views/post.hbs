@@ -1,6 +1,7 @@
 <div id="postContent">
     {{#if post.length}}
     <h1>Post</h1>
+    <a href="/profile/{{owner.id}}">{{owner.username}}</a>
     {{#each post}}
     <div id="title">
         <h1>{{title}}</h1>
@@ -27,15 +28,42 @@
         {{/if}}
     </div>
 
-    {{/each}}
-    {{/if}}
-    <div id="owner">
 
-    </div>
+
 </div>
+<div id="addcommentContainer">
+    <form method="POST" action="/comment/add/{{id}}">
+        <div class="form-group">
+            <label for="commentInput">Comment</label>
+            <input type="text" class="form-control form-control-lg" id="commentInput" name="content">
+        </div>
 
+        <button type="submit" class="btn btn-primary">Comment</button>
+
+    </form>
+</div>
+{{/each}}
+{{/if}}
 {{#if error}}
 <div id="errorMessage">
     <p>{{error}}</p>
 </div>
+{{/if}}
+{{#if comments.length}}
+<h1>Comments</h1>
+<div id="commentsContainer">
+    {{#each comments}}
+    <div class="commentContaner">
+        <a href="/profile/{{posterid}}">{{posterusername}}</a>
+        <p>{{content}}</p>
+        {{#if updatedAt}}
+        <p>Updated: {{updatedAt}}</p>
+        {{else}}
+        <p>{{createdAt}}</p>
+        {{/if}}
+    </div>
+    {{/each}}
+</div>
+{{else}}
+<h1>No comments</h1>
 {{/if}}

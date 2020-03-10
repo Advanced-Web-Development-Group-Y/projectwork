@@ -108,24 +108,7 @@ module.exports = ({ postManager, accountManager }) => {
             }
         })
     })
-    router.get('/profile/:id', (request, response) => {
-        accountManager.getAccountById(request.params.id, (error, user) => {
-            if (error || user.length === 0) {
-                response.status(500).send({ error })
-            } else {
-                accountManager.getAllPostsByUser(
-                    request.params.id,
-                    (error, posts) => {
-                        if (error) {
-                            response.status(500).send({ error })
-                        } else {
-                            response.status(200).send({ user, posts })
-                        }
-                    }
-                )
-            }
-        })
-    })
+
     router.post('/tokens', (request, response) => {
         const grant_type = request.body.grant_type
         const credentials = {
