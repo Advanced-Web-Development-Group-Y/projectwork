@@ -1,42 +1,37 @@
-<h1>All posts</h1>
+<h1 style="padding-top:50px">Add post</h1>
 
-<section id="container">
-    <div id="filters">
-        <form method="POST" action="/post/new" enctype="multipart/form-data">
-            <h3>Add new</h3>
-            <div class="form-group">
-                <label for="titleInput">Title</label>
-                <input type="text" class="form-control form-control-lg" id="titleInput"
-                    placeholder="example: 200 riot points" name="title" {{#if post}}value="{{post.title}}" {{/if}}>
-            </div>
-            <div class="form-group">
-                <label for="descriptionInput">Description</label>
-                <textarea class="form-control" id="descriptionInput" rows="3"
-                    name="descriptionInput">{{#if post}}{{post.description}}{{/if}}</textarea>
-            </div>
-            <div class="form-group">
-                <label for="platformInput">Game/Platform</label>
-                <select class="form-control form-control-lg" id="platformInput" name="platformInput"
-                    {{#if post}}value="{{post.platform}}" {{/if}}>
-                    <option>-</option>
-                    <option>Counter-Strike: Global Offensive</option>
-                    <option>League of Legends</option>
-                    <option>World of Warcraft</option>
-                    <option>Legends of Runeterra</option>
-                    <option>Hearthstone</option>
-                    <option>Dota 2</option>
-                    <option>Runescape</option>
-                    <option>Other</option>
-                    <option>Any</option>
-                </select>
-            </div>
+<div id="filters">
+    <form method="POST" action="/post/new">
+        <div class="form-group">
+            <label for="titleInput">Title</label>
+            <input type="text" class="form-control form-control-lg" id="titleInput"
+                placeholder="example: 200 riot points" name="title" {{#if post}}value="{{post.title}}" {{/if}}>
+        </div>
+        <div class="form-group">
+            <label for="contentInput">Content</label>
+            <textarea class="form-control" id="contentInput" rows="3"
+                name="content">{{#if post}}{{post.content}}{{/if}}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="currencyInput">Currency</label>
+            <input type="text" class="form-control form-control-lg" id="currencyInput" name="currency"
+                {{#if post}}value="{{post.currency}}" {{/if}}>
+        </div>
+        <div class="form-group">
+            <label for="priceInput">Price</label>
+            <input class="form-control form-control-lg" type="number" {{#if post}}value="{{post.price}}" {{/if}}
+                id="priceInput" name="price">
+        </div>
+        <div class="form-group">
+            <label for="platformInput">Platform</label>
+            <input class="form-control form-control-lg" type="text" {{#if post}}value="{{post.platform}}" {{/if}}
+                id="platformInput" name="platform">
+        </div>
+        <button type="submit" class="btn btn-primary">Add</button>
 
-            <button type="submit" class="btn btn-primary">Add</button>
+        {{#if error}}
+        <p>{{error}}</p>
+        {{/if}}
 
-            {{#if error}}
-            <p>{{error}}</p>
-            {{/if}}
-
-        </form>
-    </div>
-</section>
+    </form>
+</div>

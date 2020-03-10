@@ -18,10 +18,31 @@ const changeToPage = url => {
         document.getElementById('about-page').classList.add('current-page')
     } else if (url == '/login') {
         document.getElementById('login-page').classList.add('current-page')
+    } else if (url == '/register') {
+        document.getElementById('register-page').classList.add('current-page')
+    } else if (url == '/logout') {
+        document.getElementById('home-page').classList.add('current-page')
+        logout()
     } else if (new RegExp('^/post/[0-9]+$').test(url)) {
         document.getElementById('post-page').classList.add('current-page')
         const id = url.split('/')[2]
-        //fetchPet(id)
+        fetchPost(id).then(post => {
+            setPostPage(post)
+        })
+    } else if (new RegExp('^/post/update/[0-9]+$').test(url)) {
+        document
+            .getElementById('update-post-page')
+            .classList.add('current-page')
+        const id = url.split('/')[3]
+        fetchPost(id).then(post => {
+            setUpdatePostPage(post)
+        })
+    } else if (new RegExp('^/post/delete/[0-9]+$').test(url)) {
+        document
+            .getElementById('delete-post-page')
+            .classList.add('current-page')
+        const id = url.split('/')[3]
+        setDeletePostPage(id)
     } else if (url == '/add-post') {
         document.getElementById('add-post-page').classList.add('current-page')
     } else {
@@ -35,6 +56,10 @@ document.body.addEventListener('click', event => {
         const url = event.target.getAttribute('href')
         goToPage(url)
     }
+})
+window.addEventListener('popstate', function(event) {
+    const url = location.pathname
+    changeToPage(url)
 })
 
 changeToPage(location.pathname)

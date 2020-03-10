@@ -3,7 +3,7 @@ const con = require('./db-connect')
 module.exports = ({}) => {
     return {
         getAllPosts: callback => {
-            const query = 'SELECT * FROM posts'
+            const query = 'SELECT * FROM posts ORDER BY id DESC'
             con.query(query, (error, posts) => {
                 callback(error, posts)
             })
@@ -17,10 +17,17 @@ module.exports = ({}) => {
 
         addPost: (post, callback) => {
             const query =
-                'INSERT INTO posts(title, content, posterid, platform)VALUES(?, ?, ?, ?);'
+                'INSERT INTO posts(title, content, posterid, platform,currency,price)VALUES(?, ?, ?, ?,?,?);'
             con.query(
                 query,
-                [post.title, post.content, post.posterid, post.platform],
+                [
+                    post.title,
+                    post.content,
+                    post.posterid,
+                    post.platform,
+                    post.currency,
+                    post.price
+                ],
                 error => {
                     callback(error)
                 }
@@ -30,13 +37,27 @@ module.exports = ({}) => {
         updatePost: (post, callback) => {
             const query = `UPDATE posts 
         SET title = ?, 
-        content = ?, 
+        content = ?,
+        currency = ?,
+        price = ?,
+        platform = ?,
         updatedAt = CURRENT_TIMESTAMP 
         WHERE id = ?`
 
-            con.query(query, [post.title, post.content, post.postid], error => {
-                callback(error)
-            })
+            con.query(
+                query,
+                [
+                    post.title,
+                    post.content,
+                    post.currency,
+                    post.price,
+                    post.platform,
+                    post.postid
+                ],
+                error => {
+                    callback(error)
+                }
+            )
         },
 
         deletePostById: (id, callback) => {

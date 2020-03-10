@@ -52,46 +52,39 @@ module.exports = ({ postManager, accountManager }) => {
             }
         })
     })
-    router.post('/post/new', (request, response) => {
+    router.post('/post/', (request, response) => {
         //needs idtoken implementation
         if (!request.payload) {
             response.status(403).json({ error: 'Invalid token' })
         }
-        var userId
-        jwt.verify(
-            request.headers.authorization.split(' ')[1],
-            private_key,
-            (error, decoded) => {
-                if (error) {
-                    response.status(401).send({ error })
-                } else {
-                    userId = decoded.id
-                }
-            }
-        )
-        var post = {
-            posterid: userId,
+        const post = {
+            posterid: request.payload.userid,
             title: request.body.title,
             content: request.body.content,
-            platform: request.body.platform
+            platform: request.body.platform,
+            currency: request.body.currency,
+            price: request.body.price
         }
-
         postManager.addPost(post, error => {
             if (error) {
+                console.log(error)
                 response.status(500).send({ error })
             } else {
-                response.status(200).send({ status: 'Created' })
+                response.status(200).send({ id: post.id })
             }
         })
     })
 
-    router.put('/post/update/:id', (request, response) => {
+    router.put('/post/:id', (request, response) => {
         if (!request.payload) {
             response.status(403).json({ error: 'Invalid token' })
         }
         const post = {
             title: request.body.title,
             content: request.body.content,
+            platform: request.body.platform,
+            currency: request.body.currency,
+            price: request.body.price,
             postid: request.params.id
         }
         postManager.updatePost(post, error => {
@@ -99,6 +92,19 @@ module.exports = ({ postManager, accountManager }) => {
                 response.status(500).send({ error })
             } else {
                 response.status(200).send({ status: 'Updated' })
+            }
+        })
+    })
+    router.delete('/post/:id', (request, response) => {
+        if (!request.payload) {
+            response.status(403).json({ error: 'Invalid token' })
+        }
+
+        postManager.deletePostById(request.params.id, error => {
+            if (error) {
+                response.status(500).send({ error })
+            } else {
+                response.status(200).send({ status: 'Deleted' })
             }
         })
     })
@@ -134,31 +140,48 @@ module.exports = ({ postManager, accountManager }) => {
             if (error) {
                 response.status(400).send({ error: 'invalid_grant' })
             } else {
-                jwt.sign({ id: user[0].id }, private_key, (error, token) => {
-                    if (error) response.status(500).send({ error })
-                    else {
-                        const idToken = jwt.sign(
-                            { id: user[0].id, email: user[0].email },
-                            private_key
-                        )
-                        response.status(200).send({
-                            access_token: token,
-                            id_token: idToken
-                        })
+                jwt.sign(
+                    { userid: user[0].id },
+                    private_key,
+                    (error, token) => {
+                        if (error) response.status(500).send({ error })
+                        else {
+                            const idToken = jwt.sign(
+                                {
+                                    userid: user[0].id,
+                                    email: user[0].email,
+                                    permission: user[0].permission_level
+                                },
+                                private_key
+                            )
+                            response.status(200).send({
+                                access_token: token,
+                                id_token: idToken
+                            })
+                        }
                     }
-                })
+                )
             }
         })
     })
 
     router.post('/register', (request, response) => {
-        accountManager.register(request.body, (error, id) => {
+        const userdata = {
+            username: request.body.username,
+            password: request.body.password,
+            confirmpassword: request.body.confirmpassword,
+            firstname: request.body.firstname,
+            lastname: request.body.lastname,
+            email: request.body.email
+        }
+        accountManager.register(userdata, (error, id) => {
             if (error) {
+                console.log(error)
                 response.status(500).send({ error })
             } else {
-                jwt.sign({ userid: id }, private_key, (error, token) => {
+                jwt.sign({ userid: id }, private_key, (error, access_token) => {
                     if (error) response.status(500).send({ error })
-                    else response.status(200).send({ token })
+                    else response.status(200).send({ access_token })
                 })
             }
         })

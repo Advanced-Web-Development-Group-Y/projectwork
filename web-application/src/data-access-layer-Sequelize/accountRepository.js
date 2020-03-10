@@ -1,9 +1,9 @@
 const Seqeuelize = require('sequelize')
-const sequelize = new Seqeuelize('webAppDatabase', 'root', 'elpassword123', {
+const seqeuelize = new Seqeuelize('webAppDatabase', 'root', 'elpassword123', {
     host: 'database',
     dialect: 'mysql'
 })
-const Account = sequelize.define('accounts', {
+const Account = seqeuelize.define('accounts', {
     email: Seqeuelize.TEXT,
     username: Seqeuelize.TEXT,
     password: Seqeuelize.TEXT,
@@ -11,7 +11,7 @@ const Account = sequelize.define('accounts', {
     lastname: Seqeuelize.TEXT,
     permission_level: Seqeuelize.INTEGER
 })
-sequelize.sync()
+seqeuelize.sync()
 
 module.exports = ({}) => {
     return {

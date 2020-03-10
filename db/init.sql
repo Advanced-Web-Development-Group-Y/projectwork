@@ -45,6 +45,10 @@ CREATE TABLE accounts
 		(32) NOT NULL,
 	platform VARCHAR
 		(256) NOT NULL,
+	currency VARCHAR
+		(256) NOT NULL,
+	price INT
+		(32) NOT NULL,
 	views INT
 		(32)
 		DEFAULT 0,
@@ -83,14 +87,18 @@ CREATE TABLE accounts
 			title,
 			content,
 			posterid,
-			platform
+			platform,
+			currency,
+			price
 			)
 		VALUES
 			(
 				"Diamond account EUW lvl420",
 				"Bestest account of all times, I promise!!",
 				1,
-				"League of Legends"
+				"League of Legends",
+				"euro",
+				150
 );
 
 		INSERT INTO posts
@@ -98,14 +106,18 @@ CREATE TABLE accounts
 			title,
 			content,
 			posterid,
-			platform
+			platform,
+			currency,
+			price
 			)
 		VALUES
 			(
 				"Thunderfury, Blessed Blade of the Windseeker",
 				"Did someone say [ Thunderfury, Blessed Blade of the Windseeker ]?",
 				1,
-				"World of Warcraft"
+				"World of Warcraft",
+				"dollar",
+				2005
 );
 
 

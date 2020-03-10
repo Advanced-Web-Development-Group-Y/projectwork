@@ -1,5 +1,7 @@
-#landingTitle {
+* {
     font-family: 'Noto Sans', sans-serif;
+}
+#landingTitle {
     color: #ebebd3;
     font-size: 45pt;
 }
@@ -49,7 +51,6 @@ h2 {
     font-size: 12pt;
 }
 .navbar {
-    font-family: 'Noto Sans', sans-serif;
     color: #ebebd3;
     position: fixed;
     left: 50%;

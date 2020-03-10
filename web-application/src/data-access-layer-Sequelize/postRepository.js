@@ -1,21 +1,23 @@
 const Seqeuelize = require('sequelize')
-const sequelize = new Seqeuelize('webAppDatabase', 'root', 'elpassword123', {
+const seqeuelize = new Seqeuelize('webAppDatabase', 'root', 'elpassword123', {
     host: 'database',
     dialect: 'mysql'
 })
-const Post = sequelize.define('posts', {
+const Post = seqeuelize.define('posts', {
     title: Seqeuelize.TEXT,
     content: Seqeuelize.TEXT,
     posterid: Seqeuelize.INTEGER,
     platform: Seqeuelize.TEXT,
-    views: Seqeuelize.INTEGER
+    views: Seqeuelize.INTEGER,
+    currency: Seqeuelize.TEXT,
+    price: Seqeuelize.INTEGER
 })
 
-sequelize.sync()
+seqeuelize.sync()
 module.exports = ({}) => {
     return {
         getAllPosts: callback => {
-            Post.findAll({ raw: true })
+            Post.findAll({ raw: true, order: [['id', 'DESC']] })
                 .then(posts => {
                     callback(null, posts)
                 })
@@ -37,7 +39,9 @@ module.exports = ({}) => {
                 title: post.title,
                 content: post.content,
                 posterid: post.posterid,
-                platform: post.platform
+                platform: post.platform,
+                currency: post.currency,
+                price: post.price
             })
                 .then(callback(null))
                 .catch(error => {
@@ -46,7 +50,13 @@ module.exports = ({}) => {
         },
         updatePost: (post, callback) => {
             Post.update(
-                { title: post.title, content: post.content },
+                {
+                    title: post.title,
+                    content: post.content,
+                    currency: post.currency,
+                    platform: post.platform,
+                    price: post.price
+                },
                 { where: { id: post.postid } }
             )
                 .then(callback(null))
