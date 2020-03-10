@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="js/parsejwt.js"></script>
         <script src="js/loader.js" defer></script>
         <script src="js/posts.js" defer></script>
         <script src="js/navigation-handler.js" defer></script>
@@ -25,7 +26,13 @@
                 <li class="showIfLoggedIn">
                     <a href="/add-post">Add post</a>
                 </li>
+                <li class="showIfLoggedIn">
+                    <a href="/logout">Logout</a>
+                </li>
                 <li class="showIfLoggedOut"><a href="/login">Login</a></li>
+                <li class="showIfLoggedOut">
+                    <a href="/register">Register</a>
+                </li>
             </ul>
         </nav>
 
@@ -50,7 +57,12 @@
                     <div>
                         Platform: <br /><input type="text" class="platform" />
                     </div>
-
+                    <div>
+                        Currency: <br /><input type="text" class="currency" />
+                    </div>
+                    <div>
+                        Price: <br /><input type="number" class="price" />
+                    </div>
                     <input id="addPostButton" type="submit" value="Create" />
                     <div class="loader" id="addloader"></div>
                 </form>
@@ -59,12 +71,47 @@
             <div id="login-page">
                 <h1>Login</h1>
                 <form action="">
-                    <div>Username: <input type="text" class="username" /></div>
                     <div>
-                        Password: <input type="password" class="password" />
+                        Username: <br /><input type="text" class="username" />
                     </div>
-                    <p id="errorText"></p>
-                    <input type="submit" value="Login" />
+                    <div>
+                        Password: <br /><input
+                            type="password"
+                            class="password"
+                        />
+                    </div>
+                    <p id="loginErrorText"></p>
+                    <input type="submit" value="Login" id="loginButton" />
+                    <div class="loader" id="loginloader"></div>
+                </form>
+            </div>
+            <div id="register-page">
+                <h1>Register</h1>
+                <form action="">
+                    <div>
+                        Username: <br /><input type="text" class="username" />
+                    </div>
+                    <div>
+                        Password: <br /><input
+                            type="password"
+                            class="password"
+                        />
+                    </div>
+                    <div>
+                        Confirm password:<br />
+                        <input type="password" class="confirmpassword" />
+                    </div>
+                    <div>
+                        Firstname:<br />
+                        <input type="text" class="firstname" />
+                    </div>
+                    <div>
+                        Lastname: <br /><input type="text" class="lastname" />
+                    </div>
+                    <div>Email: <br /><input type="text" class="email" /></div>
+                    <p id="registerErrorText"></p>
+                    <input type="submit" value="Login" id="registerButton" />
+                    <div class="loader" id="registerloader"></div>
                 </form>
             </div>
             <div id="post-page">

@@ -1,13 +1,14 @@
 const fetchPosts = () => {
     toggleLoader('homeloader')
+    const parent = document.querySelector('#home-page .posts-container')
+    parent.innerHTML = ''
+
     fetch('http://localhost:8080/api/posts')
         .then(response => {
             // TODO: Check status code to see if it succeeded. Display errors if it failed.
             return response.json()
         })
         .then(posts => {
-            const parent = document.querySelector('#home-page .posts-container')
-            parent.innerHTML = ''
             for (const post of posts.posts) {
                 const personalcontainer = document.createElement('div')
                 personalcontainer.className += 'post'
@@ -26,10 +27,11 @@ const fetchPosts = () => {
                 personalcontainer.appendChild(visit)
                 parent.appendChild(personalcontainer)
             }
-            toggleLoader('homeloader')
         })
         .catch(function(error) {
             console.log(error)
+        })
+        .then(() => {
             toggleLoader('homeloader')
         })
 }
@@ -43,7 +45,6 @@ function fetchPost(id) {
             return response.json()
         })
         .then(post => {
-            toggleLoader('postloader')
             const title = document.createElement('h1')
             const content = document.createElement('p')
             const date = document.createElement('p')
@@ -59,11 +60,31 @@ function fetchPost(id) {
             parent.appendChild(price)
             parent.appendChild(date)
             parent.appendChild(platform)
+            if (!localStorage.getItem('id_token')) return
+            const currentUser = parseJwt(localStorage.getItem('id_token'))
+            if (
+                post.post[0].posterid === currentUser.userid ||
+                currentUser.permission === 1
+            ) {
+                const updatetext = document.createElement('p')
+                const updateanchor = document.createElement('a')
+                updateanchor.href = '/post/update/' + post.post[0].id
+                updatetext.innerText = 'UPDATE'
+                updateanchor.appendChild(updatetext)
+                const deletetext = document.createElement('p')
+                const deleteanchor = document.createElement('a')
+                deleteanchor.href = '/post/delete/' + post.post[0].id
+                deletetext.innerText = 'DELETE'
+                deleteanchor.appendChild(deletetext)
+                parent.appendChild(deleteanchor)
+                parent.appendChild(updateanchor)
+            }
         })
         .catch(error => {
-            toggleLoader('postloader')
-
             console.log(error)
+        })
+        .then(() => {
+            toggleLoader('postloader')
         })
 }
 const addPost = post => {
@@ -73,13 +94,11 @@ const addPost = post => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + localStorage.accessToken
+            Authorization: 'Bearer ' + localStorage.getItem('access_token')
         },
         body: JSON.stringify(post)
     })
         .then(response => {
-            document.getElementById('addPostButton').disabled = false
-            toggleLoader('addloader')
             // TODO: Check status code to see if it succeeded. Display errors if it failed.
             // TODO: Update the view somehow.
             if (response.status === 200) {
@@ -88,10 +107,12 @@ const addPost = post => {
         })
 
         .catch(error => {
-            toggleLoader('addloader')
-
             // TODO: Update the view and display error.
             console.log(error)
+        })
+        .then(() => {
+            document.getElementById('addPostButton').disabled = false
+            toggleLoader('addloader')
         })
 }
 document
@@ -103,11 +124,15 @@ document
         const content = document.querySelector('#add-post-page .content').value
         const platform = document.querySelector('#add-post-page .platform')
             .value
-
+        const currency = document.querySelector('#add-post-page .currency')
+            .value
+        const price = document.querySelector('#add-post-page .price').value
         const post = {
             title,
             content,
-            platform
+            platform,
+            currency,
+            price
         }
         addPost(post)
     })

@@ -3,7 +3,7 @@ const con = require('./db-connect')
 module.exports = ({}) => {
     return {
         getAllPosts: callback => {
-            const query = 'SELECT * FROM posts'
+            const query = 'SELECT * FROM posts ORDER BY id DESC'
             con.query(query, (error, posts) => {
                 callback(error, posts)
             })

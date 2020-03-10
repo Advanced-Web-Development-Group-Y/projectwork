@@ -18,6 +18,11 @@ const changeToPage = url => {
         document.getElementById('about-page').classList.add('current-page')
     } else if (url == '/login') {
         document.getElementById('login-page').classList.add('current-page')
+    } else if (url == '/register') {
+        document.getElementById('register-page').classList.add('current-page')
+    } else if (url == '/logout') {
+        document.getElementById('home-page').classList.add('current-page')
+        logout()
     } else if (new RegExp('^/post/[0-9]+$').test(url)) {
         document.getElementById('post-page').classList.add('current-page')
         const id = url.split('/')[2]

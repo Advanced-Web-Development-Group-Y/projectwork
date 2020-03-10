@@ -89,3 +89,9 @@ p {
 h1 {
     font-size: 17pt;
 }
+#register-page {
+    text-align: center;
+}
+#login-page {
+    text-align: center;
+}
