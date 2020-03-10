@@ -67,7 +67,37 @@
                     <div class="loader" id="addloader"></div>
                 </form>
             </div>
+            <div id="update-post-page">
+                <h1>Update post</h1>
+                <form action="">
+                    <div>Title: <br /><input type="text" class="title" /></div>
+                    <div>
+                        Content: <br /><input type="text" class="content" />
+                    </div>
+                    <div>
+                        Platform: <br /><input type="text" class="platform" />
+                    </div>
+                    <div>
+                        Currency: <br /><input type="text" class="currency" />
+                    </div>
+                    <div>
+                        Price: <br /><input type="number" class="price" />
+                    </div>
+                    <input class="id" type="hidden" value="" />
 
+                    <input id="updatePostButton" type="submit" value="Update" />
+                    <div class="loader" id="updateloader"></div>
+                </form>
+            </div>
+            <div id="delete-post-page">
+                <h1>Delete post</h1>
+                <form action="">
+                    <p>Are you sure you want to delete this post?</p>
+                    <input class="id" type="hidden" value="" />
+                    <input id="deletePostButton" type="submit" value="Delete" />
+                    <div class="loader" id="deleteloader"></div>
+                </form>
+            </div>
             <div id="login-page">
                 <h1>Login</h1>
                 <form action="">

@@ -17,8 +17,7 @@ router.get('/login', (request, response) => {
 router.get('/register', (request, response) => {
     response.render('register.hbs', { layout: 'noappbar.hbs' })
 })
-router.get('/logout', (request, response) => {
-    /* LOGOUT SKA VARA POST!!!!!! */
+router.post('/logout', (request, response) => {
     request.session.isLoggedIn = false
     request.session.user = null
     response.redirect('/')

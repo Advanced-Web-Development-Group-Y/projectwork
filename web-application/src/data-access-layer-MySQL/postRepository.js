@@ -40,6 +40,7 @@ module.exports = ({}) => {
         content = ?,
         currency = ?,
         price = ?,
+        platform = ?,
         updatedAt = CURRENT_TIMESTAMP 
         WHERE id = ?`
 
@@ -50,6 +51,7 @@ module.exports = ({}) => {
                     post.content,
                     post.currency,
                     post.price,
+                    post.platform,
                     post.postid
                 ],
                 error => {

@@ -1,23 +1,15 @@
-<h1>All posts</h1>
-<section id="homeContainer">
+<section class="contentcontainer">
     <div id="filters">
         <form method="GET" action="/posts">
             <h3>Filter</h3>
             <div class="form-group">
-                <label for="exampleFormControlInput1">Key word</label>
-                <input type="text" class="form-control form-control-lg" id="exampleFormControlInput1"
-                    placeholder="example: csgo keys">
+                <label for="keywordInput">Keyword</label>
+                <input type="text" class="form-control form-control-lg" id="keywordInput"
+                    placeholder="example: csgo keys" name="keyword">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlSelect1">Game/Platform</label>
-                <select class="form-control form-control-lg" id="exampleFormControlSelect1">
-                    <option>-</option>
-                    <option>Counter-Strike: Global Offensive</option>
-                    <option>League of Legends</option>
-                    <option>World Of Warcraft</option>
-                    <option>Dota 2</option>
-                    <option>Escape from tarkov</option>
-                </select>
+                <label for="platformGameInput">Game/Platform</label>
+                <input type="text" class="form-control form-control-lg" id="platformGameInput" name="platform">
             </div>
             <button type="submit" class="btn btn-primary">Filter</button>
 

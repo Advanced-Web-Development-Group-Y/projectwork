@@ -5,29 +5,37 @@
     <form method="POST" action="/post/update/{{post.id}}" id="updatePost">
         <div class="form-group">
 
-            <p>Title</p>
-
+            <label for="titleInput">Title</label>
             <input type="text" class="form-control form-control-lg" id="titleInput"
                 placeholder="example: 200 riot points" name="title" value="{{post.title}}">
         </div>
 
         <div class="form-group">
 
-            <p>Description</p>
+            <label for="contentInput">Content</label>
 
-            <textarea class="form-control" id="descriptionInput" rows="3" name="description"
+            <textarea class="form-control" id="contentInput" rows="3" name="content"
                 style="resize: none;">{{post.content}}</textarea>
 
         </div>
         <div class="form-group">
-            <p>Currency</p>
+
+            <label for="platformInput">Platform</label>
+
+            <input type="text" class="form-control form-control-lg" id="platformInput" name="platform"
+                value="{{post.platform}}">
+
+        </div>
+        <div class="form-group">
+            <label for="currencyInput">Currency</label>
             <input type="text" class="form-control form-control-lg" id="currencyInput" name="currency"
                 value={{post.currency}}>
         </div>
         <div class="form-group">
-            <p>Price</p>
+            <label for="priceInput">Price</label>
             <input class="form-control form-control-lg" type="number" id="priceInput" value={{post.price}} name="price">
         </div>
+
         <button type="submit" class="btn btn-primary" id="updateButton">Update Post</button>
     </form>
 

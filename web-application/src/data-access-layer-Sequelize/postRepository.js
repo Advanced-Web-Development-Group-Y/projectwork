@@ -54,6 +54,7 @@ module.exports = ({}) => {
                     title: post.title,
                     content: post.content,
                     currency: post.currency,
+                    platform: post.platform,
                     price: post.price
                 },
                 { where: { id: post.postid } }

@@ -1,7 +1,7 @@
 <h1 style="padding-top:50px">Profile</h1>
 <div id="profileBox">
     {{#if somethingWentWrong}}
-    <h1>User does not exist!=(</h1>
+    <h1>User does not exist</h1>
     {{else}}
     {{#if user}}
     {{#each user}}
@@ -31,7 +31,7 @@
 {{/each}}
 {{else}}
 <div id="noPosts">
-    <p>This user hasn't posted anything yet! =(</p>
+    <p>This user hasn't posted anything yet!</p>
 </div>
 {{/if}}
 {{/if}}

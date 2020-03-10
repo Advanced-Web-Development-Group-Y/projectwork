@@ -49,10 +49,9 @@
                 </li>
                 {{/if}}
                 {{#if isLoggedIn}}
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/logout">Logout</a>
-                </li>
+                <form action="/logout" method="POST">
+                    <button type="submit" class="btn btn-danger logout-button">Logout</button>
+                </form>
                 {{else}}
                 <li class="nav-item">
                     <a class="nav-link" href="/login">Login</a>

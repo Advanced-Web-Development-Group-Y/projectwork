@@ -26,7 +26,23 @@ const changeToPage = url => {
     } else if (new RegExp('^/post/[0-9]+$').test(url)) {
         document.getElementById('post-page').classList.add('current-page')
         const id = url.split('/')[2]
-        fetchPost(id)
+        fetchPost(id).then(post => {
+            setPostPage(post)
+        })
+    } else if (new RegExp('^/post/update/[0-9]+$').test(url)) {
+        document
+            .getElementById('update-post-page')
+            .classList.add('current-page')
+        const id = url.split('/')[3]
+        fetchPost(id).then(post => {
+            setUpdatePostPage(post)
+        })
+    } else if (new RegExp('^/post/delete/[0-9]+$').test(url)) {
+        document
+            .getElementById('delete-post-page')
+            .classList.add('current-page')
+        const id = url.split('/')[3]
+        setDeletePostPage(id)
     } else if (url == '/add-post') {
         document.getElementById('add-post-page').classList.add('current-page')
     } else {

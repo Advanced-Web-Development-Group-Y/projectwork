@@ -67,6 +67,7 @@ module.exports = ({ postManager }) => {
                     id: fetchedPost[0].id,
                     title: fetchedPost[0].title,
                     content: fetchedPost[0].content,
+                    platform: fetchedPost[0].platform,
                     currency: fetchedPost[0].currency,
                     price: fetchedPost[0].price
                 }
@@ -88,7 +89,7 @@ module.exports = ({ postManager }) => {
         var post = {
             posterid: request.session.user[0].id,
             title: request.body.title,
-            content: request.body.description,
+            content: request.body.content,
             platform: request.body.platform,
             currency: request.body.currency,
             price: request.body.price
@@ -105,8 +106,9 @@ module.exports = ({ postManager }) => {
     router.post('/post/update/:id', (request, response) => {
         const post = {
             title: request.body.title,
-            content: request.body.description,
+            content: request.body.content,
             currency: request.body.currency,
+            platform: request.body.platform,
             price: request.body.price,
             postid: request.params.id
         }

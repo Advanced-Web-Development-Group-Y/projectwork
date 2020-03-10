@@ -52,7 +52,7 @@ module.exports = ({ postManager, accountManager }) => {
             }
         })
     })
-    router.post('/post/new', (request, response) => {
+    router.post('/post/', (request, response) => {
         //needs idtoken implementation
         if (!request.payload) {
             response.status(403).json({ error: 'Invalid token' })
@@ -75,13 +75,16 @@ module.exports = ({ postManager, accountManager }) => {
         })
     })
 
-    router.put('/post/update/:id', (request, response) => {
+    router.put('/post/:id', (request, response) => {
         if (!request.payload) {
             response.status(403).json({ error: 'Invalid token' })
         }
         const post = {
             title: request.body.title,
             content: request.body.content,
+            platform: request.body.platform,
+            currency: request.body.currency,
+            price: request.body.price,
             postid: request.params.id
         }
         postManager.updatePost(post, error => {
@@ -89,6 +92,19 @@ module.exports = ({ postManager, accountManager }) => {
                 response.status(500).send({ error })
             } else {
                 response.status(200).send({ status: 'Updated' })
+            }
+        })
+    })
+    router.delete('/post/:id', (request, response) => {
+        if (!request.payload) {
+            response.status(403).json({ error: 'Invalid token' })
+        }
+
+        postManager.deletePostById(request.params.id, error => {
+            if (error) {
+                response.status(500).send({ error })
+            } else {
+                response.status(200).send({ status: 'Deleted' })
             }
         })
     })
