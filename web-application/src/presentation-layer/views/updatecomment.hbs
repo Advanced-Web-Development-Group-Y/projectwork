@@ -1,0 +1,28 @@
+<h1 style="padding-top:100px">Update Comment</h1>
+
+<div id="updatePost">
+
+    <form method="POST" action="/comment/update/{{comment.id}}" id="updatePost">
+
+        <div class="form-group">
+
+            <label for="contentInput">Content</label>
+
+            <textarea class="form-control" id="contentInput" rows="3" name="content"
+                style="resize: none;">{{comment.content}}</textarea>
+            <input type="hidden" value="{{comment.postid}}" name="postid">
+
+
+        </div>
+
+
+        <button type="submit" class="btn btn-primary" id="updateButton">Update Post</button>
+    </form>
+
+    {{#if error}}
+    <div id="errorMessage">
+        <p>{{error}}</p>
+    </div>
+    {{/if}}
+
+</div>

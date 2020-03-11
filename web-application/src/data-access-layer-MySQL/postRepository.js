@@ -58,7 +58,7 @@ module.exports = ({}) => {
                 [
                     post.title,
                     post.content,
-                    post.posterid,
+                    post.userid,
                     post.platform,
                     post.currency,
                     post.price

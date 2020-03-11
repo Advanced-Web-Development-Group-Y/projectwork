@@ -7,7 +7,13 @@ module.exports = ({}) => {
                 callback(error, comments)
             })
         },
-        deleteComment: (id, callback) => {
+        getCommentById: (id, callback) => {
+            const query = 'SELECT * FROM comments WHERE id = ?'
+            con.query(query, id, (error, comment) => {
+                callback(error, comment)
+            })
+        },
+        deleteCommentById: (id, callback) => {
             const query = `DELETE FROM comments WHERE id = ?`
 
             con.query(query, id, error => {

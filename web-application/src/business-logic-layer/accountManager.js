@@ -46,6 +46,40 @@ module.exports = ({ accountRepository }) => {
         getAccountById: (id, callback) => {
             accountRepository.getAccountById(id, callback)
         },
+        updateAccount: (data, callback) => {
+            accountRepository.getAccountById(data.id, (error, account) => {
+                if (error) {
+                    callback(error)
+                } else if (data.userid !== account[0].id) {
+                    callback('Not authorized')
+                } else {
+                    if (data.firstname.length < 1)
+                        callback('Firstname must be atleast 1 character long')
+                    else if (data.lastname.length < 1)
+                        callback('Lastname must be atleast 1 character long')
+                    else if (data.email.length < 10)
+                        callback('Email must be atleast 1 character long')
+                    else {
+                        accountRepository.updateAccount(data, callback)
+                    }
+                }
+            })
+        },
+        deleteAccountById: (data, callback) => {
+            accountRepository.getAccountById(data.id, (error, account) => {
+                if (error) {
+                    callback(error)
+                } else if (data.userid !== account[0].id) {
+                    callback('Not authorized')
+                } else {
+                    if (data.id <= -1) {
+                        callback('Not a valid ID!')
+                    } else {
+                        accountRepository.deleteAccountById(data.id, callback)
+                    }
+                }
+            })
+        },
         login: (credentials, callback) => {
             if (!credentials.password || !credentials.username) {
                 callback('Provide credentials', null)
@@ -54,7 +88,11 @@ module.exports = ({ accountRepository }) => {
             accountRepository.getPasswordFromAccountByUsername(
                 credentials.username,
                 (error, result) => {
-                    if (result === undefined || result.length === 0)
+                    if (
+                        result === undefined ||
+                        result === null ||
+                        result.length === 0
+                    )
                         error = 'Wrong credentials'
                     if (!error) {
                         bcrypt.compare(

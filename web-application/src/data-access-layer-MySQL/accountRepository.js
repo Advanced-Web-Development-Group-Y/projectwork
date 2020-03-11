@@ -20,6 +20,30 @@ module.exports = ({}) => {
                 callback(error, account)
             })
         },
+        updateAccount: (data, callback) => {
+            const query = `UPDATE accounts 
+        SET firstname = ?, 
+        lastname = ?,
+        email = ?,
+        updatedAt = CURRENT_TIMESTAMP 
+        WHERE id = ?`
+
+            con.query(
+                query,
+                [data.firstname, data.lastname, data.email, data.id],
+                error => {
+                    callback(error)
+                }
+            )
+        },
+        deleteAccountById: (id, callback) => {
+            const query = `DELETE FROM accounts WHERE id = ?`
+
+            con.query(query, id, error => {
+                callback(error)
+            })
+        },
+
         register: (credentials, callback) => {
             const query =
                 'INSERT INTO accounts(username,password,firstname,lastname,email)VALUES(?,?,?,?,?);'

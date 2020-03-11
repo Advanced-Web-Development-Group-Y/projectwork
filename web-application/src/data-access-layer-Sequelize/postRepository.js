@@ -86,7 +86,7 @@ module.exports = ({}) => {
             Post.create({
                 title: post.title,
                 content: post.content,
-                posterid: post.posterid,
+                posterid: post.userid,
                 platform: post.platform,
                 currency: post.currency,
                 price: post.price

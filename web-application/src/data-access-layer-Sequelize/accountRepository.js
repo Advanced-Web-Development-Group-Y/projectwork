@@ -48,6 +48,29 @@ module.exports = ({}) => {
                     callback(error, null)
                 })
         },
+        updateAccount: (data, callback) => {
+            Account.update(
+                {
+                    firstname: data.firstname,
+                    lastname: data.lastname,
+                    email: data.email
+                },
+                { where: { id: data.id } }
+            )
+                .then(callback(null))
+                .catch(error => {
+                    callback(error)
+                })
+        },
+        deleteAccountById: (id, callback) => {
+            Account.destroy({
+                where: { id: id }
+            })
+                .then(callback(null))
+                .catch(error => {
+                    callback(error)
+                })
+        },
         register: (credentials, callback) => {
             Account.create({
                 username: credentials.username,

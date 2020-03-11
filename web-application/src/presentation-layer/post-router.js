@@ -3,6 +3,12 @@ const express = require('express')
 module.exports = ({ postManager, commentManager, accountManager }) => {
     const router = express.Router()
 
+    const redirectIfNotLoggedIn = (request, response, next) => {
+        if (!request.session.user) {
+            response.redirect('/login')
+        } else return next()
+    }
+
     router.get('/posts', (request, response) => {
         if (request.query.keyword || request.query.platform) {
             postManager.getAllFilteredPosts(request.query, (error, posts) => {
@@ -56,14 +62,18 @@ module.exports = ({ postManager, commentManager, accountManager }) => {
 
                 response.render('post.hbs', model)
             } else {
-                let canEditPost =
-                    post[0].posterid === request.session.user[0].id
-                        ? true
-                        : false
+                var canEditPost
+                if (request.session.user) {
+                    canEditPost =
+                        post[0].posterid === request.session.user[0].id
+                            ? true
+                            : false
 
-                if (request.session.user[0].permission_level === 1) {
-                    canEditPost = true
+                    if (request.session.user[0].permission_level === 1) {
+                        canEditPost = true
+                    }
                 }
+
                 accountManager.getAccountById(
                     post[0].posterid,
                     (error, owner) => {
@@ -84,16 +94,32 @@ module.exports = ({ postManager, commentManager, accountManager }) => {
                                         }
                                         response.render('post.hbs', model)
                                     } else {
-                                        let isAdmin =
-                                            request.session.user[0]
-                                                .permission_level === 1
+                                        var canDeleteComments
+                                        if (request.session.user) {
+                                            if (
+                                                request.session.user[0]
+                                                    .permission_level === 1
+                                            )
+                                                canDeleteComments = true
+
+                                            for (comment of comments) {
+                                                if (
+                                                    comment.posterid ===
+                                                    request.session.user[0].id
+                                                )
+                                                    comment.isOwner = true
+                                                else comment.isOwner = false
+                                            }
+                                        }
                                         const model = {
                                             somethingWentWrong: false,
                                             canUserEditPost: canEditPost,
                                             post,
                                             comments,
                                             owner: owner[0],
-                                            isAdmin
+                                            canDeleteComments,
+                                            isLoggedIn:
+                                                request.session.isLoggedIn
                                         }
                                         response.render('post.hbs', model)
                                     }
@@ -124,20 +150,27 @@ module.exports = ({ postManager, commentManager, accountManager }) => {
         })
     })
 
-    router.get('/post/delete/:id', (request, response) => {
-        postManager.deletePostById(request.params.id, error => {
-            if (error) {
-                console.log(error)
-
-                response.redirect('/posts')
-            } else {
-                response.redirect('/posts')
+    router.post(
+        '/post/delete/:id',
+        redirectIfNotLoggedIn,
+        (request, response) => {
+            const information = {
+                id: request.params.id,
+                userid: request.session.user[0].id
             }
-        })
-    })
-    router.post('/post/new', (request, response) => {
+            postManager.deletePostById(information, error => {
+                if (error) {
+                    console.log(error)
+                    response.redirect('/post/' + request.params.id)
+                } else {
+                    response.redirect('/posts')
+                }
+            })
+        }
+    )
+    router.post('/post/new', redirectIfNotLoggedIn, (request, response) => {
         var post = {
-            posterid: request.session.user[0].id,
+            userid: request.session.user[0].id,
             title: request.body.title,
             content: request.body.content,
             platform: request.body.platform,
@@ -153,22 +186,27 @@ module.exports = ({ postManager, commentManager, accountManager }) => {
         })
     })
 
-    router.post('/post/update/:id', (request, response) => {
-        const post = {
-            title: request.body.title,
-            content: request.body.content,
-            currency: request.body.currency,
-            platform: request.body.platform,
-            price: request.body.price,
-            postid: request.params.id
-        }
-        postManager.updatePost(post, error => {
-            if (error) {
-                response.render('updatepost.hbs', { error, post })
-            } else {
-                response.redirect('/post/' + request.params.id)
+    router.post(
+        '/post/update/:id',
+        redirectIfNotLoggedIn,
+        (request, response) => {
+            const post = {
+                userid: request.session.user[0].id,
+                title: request.body.title,
+                content: request.body.content,
+                currency: request.body.currency,
+                platform: request.body.platform,
+                price: request.body.price,
+                postid: request.params.id
             }
-        })
-    })
+            postManager.updatePost(post, error => {
+                if (error) {
+                    response.render('updatepost.hbs', { error, post })
+                } else {
+                    response.redirect('/post/' + request.params.id)
+                }
+            })
+        }
+    )
     return router
 }

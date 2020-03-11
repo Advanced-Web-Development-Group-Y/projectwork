@@ -59,9 +59,9 @@ const postManager = require('../business-logic-layer/postManager')
 const commentManager = require('../business-logic-layer/commentManager')
 
 /*Repositories*/
-const postRepository = require('../data-access-layer-MySQL/postRepository')
-const accountRepository = require('../data-access-layer-MySQL/accountRepository')
-const commentRepository = require('../data-access-layer-MySQL/commentRepository')
+const postRepository = require('../data-access-layer-Sequelize/postRepository')
+const accountRepository = require('../data-access-layer-Sequelize/accountRepository')
+const commentRepository = require('../data-access-layer-Sequelize/commentRepository')
 
 /*Routers*/
 const accountRouter = require('../presentation-layer/account-router')
@@ -91,8 +91,8 @@ const theApiRouter = container.resolve('apiRouter')
 app.use('/api', theApiRouter)
 app.use(theAccountRouter)
 app.use(thePostRouter)
-app.use(generalRouter)
 app.use(theCommentRouter)
+app.use(generalRouter)
 app.listen(8080, () => {
     console.log('Web application listening on port 8080.')
 })
