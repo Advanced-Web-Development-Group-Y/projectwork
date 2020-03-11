@@ -1,6 +1,12 @@
 <div id="postContent">
+    {{#if somethingWentWrong}}
+    <h1>Sorry, that post does not exist.</h1>
+    {{/if}}
     {{#if post.length}}
     <h1>Post</h1>
+    <div id="owner">
+        <a href="/profile/{{owner.id}}">{{owner.username}}</a>
+    </div>
     {{#each post}}
     <div id="title">
         <h1>{{title}}</h1>
@@ -20,22 +26,66 @@
         {{#if updatedAt}}<p>Last Update: {{updatedAt}}</p>{{/if}}
     </div>
     <div id="buttons">
-        <a href="/profile/{{posterid}}" class="btn btn-primary" id="contactBtn">Contact</a>
         {{#if ../canUserEditPost}}
         <a href="/post/update/{{id}}" class="btn btn-primary" id="updateBtn">Update Post</a>
-        <a href="/post/delete/{{id}}" class="btn btn-primary" id="deleteBtn">Delete Post</a>
+        <form method="POST" action="/post/delete/{{id}}">
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
         {{/if}}
     </div>
 
-    {{/each}}
-    {{/if}}
-    <div id="owner">
 
-    </div>
+
 </div>
+{{#if ../isLoggedIn}}
+<div id="addcommentContainer">
+    <form method="POST" action="/comment/add/{{id}}">
+        <div class="form-group">
+            <label for="commentInput">Comment</label>
+            <textarea class="form-control" id="commentInput" rows="3" name="content" style="resize: none;"></textarea>
+        </div>
 
+        <button type="submit" class="btn btn-primary">Comment</button>
+
+    </form>
+</div>
+{{/if}}
+{{/each}}
+{{/if}}
 {{#if error}}
 <div id="errorMessage">
     <p>{{error}}</p>
 </div>
+{{/if}}
+{{#if comments.length}}
+<h1>Comments</h1>
+<div id="commentsContainer">
+    {{#each comments}}
+    <div class="commentContaner">
+        <a href="/profile/{{posterid}}">{{posterusername}}</a>
+        <p>{{content}}</p>
+        {{#if updatedAt}}
+        <p>Updated: {{updatedAt}}</p>
+
+        {{else}}
+        <p>{{createdAt}}</p>
+        {{/if}}
+        {{#if isOwner}}
+        <a href="/comment/update/{{id}}" class="btn btn-primary">Update</a>
+        {{/if}}
+        {{#if ../canDeleteComments}}
+        <form method="POST" action="/comment/delete/{{id}}">
+            <input type="hidden" value="{{postid}}" name="postid">
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+        {{/if}}
+    </div>
+
+    {{/each}}
+</div>
+{{else}}
+{{#if somethingWentWrong}}
+{{else}}
+<h1>No comments</h1>
+{{/if}}
 {{/if}}

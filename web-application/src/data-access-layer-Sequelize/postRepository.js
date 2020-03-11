@@ -1,19 +1,20 @@
-const Seqeuelize = require('sequelize')
-const seqeuelize = new Seqeuelize('webAppDatabase', 'root', 'elpassword123', {
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op
+const sequelize = new Sequelize('webAppDatabase', 'root', 'elpassword123', {
     host: 'database',
     dialect: 'mysql'
 })
-const Post = seqeuelize.define('posts', {
-    title: Seqeuelize.TEXT,
-    content: Seqeuelize.TEXT,
-    posterid: Seqeuelize.INTEGER,
-    platform: Seqeuelize.TEXT,
-    views: Seqeuelize.INTEGER,
-    currency: Seqeuelize.TEXT,
-    price: Seqeuelize.INTEGER
+const Post = sequelize.define('posts', {
+    title: Sequelize.TEXT,
+    content: Sequelize.TEXT,
+    posterid: Sequelize.INTEGER,
+    platform: Sequelize.TEXT,
+    views: Sequelize.INTEGER,
+    currency: Sequelize.TEXT,
+    price: Sequelize.INTEGER
 })
 
-seqeuelize.sync()
+sequelize.sync()
 module.exports = ({}) => {
     return {
         getAllPosts: callback => {
@@ -24,6 +25,53 @@ module.exports = ({}) => {
                 .catch(error => {
                     callback(error)
                 })
+        },
+        getAllFilteredPosts: (searchQuery, callback) => {
+            if (searchQuery.keyword && searchQuery.platform) {
+                Post.findAll({
+                    raw: true,
+                    order: [['id', 'DESC']],
+                    where: {
+                        title: { [Op.like]: `%${searchQuery.keyword}%` },
+                        platform: { [Op.like]: `%${searchQuery.platform}%` }
+                    }
+                })
+                    .then(posts => {
+                        callback(null, posts)
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        callback(error)
+                    })
+            } else if (searchQuery.keyword && !searchQuery.platform) {
+                Post.findAll({
+                    raw: true,
+                    order: [['id', 'DESC']],
+                    where: { title: { [Op.like]: `%${searchQuery.keyword}%` } }
+                })
+                    .then(posts => {
+                        callback(null, posts)
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        callback(error)
+                    })
+            } else if (!searchQuery.keyword && searchQuery.platform) {
+                Post.findAll({
+                    raw: true,
+                    order: [['id', 'DESC']],
+                    where: {
+                        platform: { [Op.like]: `%${searchQuery.platform}%` }
+                    }
+                })
+                    .then(posts => {
+                        callback(null, posts)
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        callback(error)
+                    })
+            }
         },
         getPost: (id, callback) => {
             Post.findByPk(id, { raw: true })
@@ -38,7 +86,7 @@ module.exports = ({}) => {
             Post.create({
                 title: post.title,
                 content: post.content,
-                posterid: post.posterid,
+                posterid: post.userid,
                 platform: post.platform,
                 currency: post.currency,
                 price: post.price

@@ -5,10 +5,30 @@
     {{else}}
     {{#if user}}
     {{#each user}}
-    <h1>{{firstname}} {{lastname}}</h1>
+    <h1>{{username}}</h1>
+
+    {{#if ../canEdit}}
+    <form method="POST" action="/profile/update/{{id}}" id="updatePost">
+        <label for="firstnameInput">Firstname</label>
+        <input type="text" class="form-control form-control-lg" id="firstnameInput" name="firstname"
+            value="{{firstname}}">
+        <label for="lastnameInput">Lastname</label>
+        <input type="text" class="form-control form-control-lg" id="lastnameInput" name="lastname" value="{{lastname}}">
+        <label for="emailInput">Email</label>
+        <input type="text" class="form-control form-control-lg" id="emailInput" name="email" value="{{email}}"><br>
+        <button type="submit" class="btn btn-primary" id="updateButton">Update Profile</button>
+    </form>
+    <form method="POST" action="/profile/delete/{{id}}">
+        <button type="submit" class="btn btn-danger">Delete profile</button>
+    </form>
+    {{else}}
+    <p>{{firstname}} {{lastname}}</p>
 
     <a href="mailto:{{email}}">{{email}}</a>
     <p>Registered: {{createdAt}}</p>
+
+    {{/if}}
+
     {{/each}}
     {{/if}}
 </div>

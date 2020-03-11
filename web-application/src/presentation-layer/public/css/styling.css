@@ -60,7 +60,16 @@ h1 {
     margin: auto;
     padding-top: 4%;
 }
-
+#addcommentContainer {
+    width: 80%;
+    margin: auto;
+    padding-top: 4%;
+}
+#commentsContainer {
+    width: 80%;
+    margin: auto;
+    padding-top: 4%;
+}
 #postContent #title {
     margin-top: 0%;
     background-color: rgba(90, 90, 90, 0.2);
@@ -184,7 +193,9 @@ input[class='form-control-file'] {
 #noPosts {
     text-align: center;
 }
-
+#owner {
+    text-align: center;
+}
 #gohomeButton #gohome {
     margin-left: 45%;
     width: 10%;
@@ -206,4 +217,9 @@ input[class='form-control-file'] {
     left: 0;
     bottom: 0;
     right: 0;
+}
+.commentContaner {
+    border: 1px solid black;
+    margin: 15px;
+    padding: 50px;
 }

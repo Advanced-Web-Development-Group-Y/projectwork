@@ -53,71 +53,103 @@ CREATE TABLE accounts
 		(32)
 		DEFAULT 0,
 	createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	updatedAt DATETIME,
 	PRIMARY KEY
 		(id),
 	FOREIGN KEY
 		(posterid) REFERENCES accounts
-		(id)
+		(id) ON
+		DELETE CASCADE
 );
 
-		/*Inserting standard admin account upon creation*/
-		INSERT INTO accounts
-			(
-			email,
-			username,
-			password,
-			firstname,
-			lastname,
-			permission_level
-			)
-		VALUES
-			(
-				"admin@admin.com",
-				"admin",
-				"$2b$10$U/fRD0/j/haEPEHjDMe7lu8ZxlG1d7bVl5p8af0rUcjNIxInTrBy6",
-				"admin",
-				"admin",
-				1
+
+		CREATE TABLE comments
+		(
+			id INT(10)
+			AUTO_INCREMENT,
+	content VARCHAR
+			(1024) NOT NULL,
+	postid INT
+			(32) NOT NULL,
+	posterid INT
+			(32) NOT NULL,
+			
+posterusername VARCHAR
+			(1024) NOT NULL,
+	createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	updatedAt DATETIME,
+	PRIMARY KEY
+			(id),
+	FOREIGN KEY
+			(postid) REFERENCES posts
+			(id) ON
+			DELETE CASCADE,
+	FOREIGN KEY (posterid)
+			REFERENCES accounts
+			(id) ON
+			DELETE CASCADE,
+			FOREIGN KEY (posterusername)
+			REFERENCES accounts
+			(username) ON
+			DELETE CASCADE
+);
+			/*Inserting standard admin account upon creation*/
+			INSERT INTO accounts
+				(
+				email,
+				username,
+				password,
+				firstname,
+				lastname,
+				permission_level
+				)
+			VALUES
+				(
+					"admin@admin.com",
+					"admin",
+					"$2b$10$U/fRD0/j/haEPEHjDMe7lu8ZxlG1d7bVl5p8af0rUcjNIxInTrBy6",
+					"admin",
+					"admin",
+					1
 );
 
-		/*Inserting standard posts into posts upon creation for testing*/
-		INSERT INTO posts
-			(
-			title,
-			content,
-			posterid,
-			platform,
-			currency,
-			price
-			)
-		VALUES
-			(
-				"Diamond account EUW lvl420",
-				"Bestest account of all times, I promise!!",
-				1,
-				"League of Legends",
-				"euro",
-				150
+			/*Inserting standard posts into posts upon creation for testing*/
+			INSERT INTO posts
+				(
+				title,
+				content,
+				posterid,
+				platform,
+				currency,
+				price
+				)
+			VALUES
+				(
+					"Diamond account EUW lvl420",
+					"Bestest account of all times, I promise!!",
+					1,
+					"League of Legends",
+					"euro",
+					150
 );
 
-		INSERT INTO posts
-			(
-			title,
-			content,
-			posterid,
-			platform,
-			currency,
-			price
-			)
-		VALUES
-			(
-				"Thunderfury, Blessed Blade of the Windseeker",
-				"Did someone say [ Thunderfury, Blessed Blade of the Windseeker ]?",
-				1,
-				"World of Warcraft",
-				"dollar",
-				2005
+			INSERT INTO posts
+				(
+				title,
+				content,
+				posterid,
+				platform,
+				currency,
+				price
+				)
+			VALUES
+				(
+					"Thunderfury, Blessed Blade of the Windseeker",
+					"Did someone say [ Thunderfury, Blessed Blade of the Windseeker ]?",
+					1,
+					"World of Warcraft",
+					"dollar",
+					2005
 );
 
 

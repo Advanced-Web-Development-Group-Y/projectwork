@@ -53,39 +53,46 @@ app.set('views', 'src/presentation-layer/views')
 /* Create container */
 const container = awilix.createContainer()
 
-/*Account dependency*/
-const accountRepository = require('../data-access-layer-MySQL/accountRepository')
+/*Managers*/
 const accountManager = require('../business-logic-layer/accountManager')
-const accountRouter = require('../presentation-layer/account-router')
-
-container.register('accountRepository', awilix.asFunction(accountRepository))
-container.register('accountManager', awilix.asFunction(accountManager))
-container.register('accountRouter', awilix.asFunction(accountRouter))
-
-const theAccountRouter = container.resolve('accountRouter')
-
-/*Post dependency*/
-const postRepository = require('../data-access-layer-MySQL/postRepository')
 const postManager = require('../business-logic-layer/postManager')
-const postRouter = require('../presentation-layer/post-router')
+const commentManager = require('../business-logic-layer/commentManager')
 
+/*Repositories*/
+const postRepository = require('../data-access-layer-Sequelize/postRepository')
+const accountRepository = require('../data-access-layer-Sequelize/accountRepository')
+const commentRepository = require('../data-access-layer-Sequelize/commentRepository')
+
+/*Routers*/
+const accountRouter = require('../presentation-layer/account-router')
+const postRouter = require('../presentation-layer/post-router')
+const apiRouter = require('../presentation-layer/api-router')
+const commentRouter = require('../presentation-layer/comment-router')
+
+/* Register */
+container.register('commentRepository', awilix.asFunction(commentRepository))
+container.register('commentManager', awilix.asFunction(commentManager))
+container.register('commentRouter', awilix.asFunction(commentRouter))
 container.register('postRepository', awilix.asFunction(postRepository))
 container.register('postManager', awilix.asFunction(postManager))
 container.register('postRouter', awilix.asFunction(postRouter))
-
-const thePostRouter = container.resolve('postRouter')
-
-/*API dependency*/
-const apiRouter = require('../presentation-layer/api-router')
+container.register('accountRepository', awilix.asFunction(accountRepository))
+container.register('accountManager', awilix.asFunction(accountManager))
+container.register('accountRouter', awilix.asFunction(accountRouter))
 container.register('apiRouter', awilix.asFunction(apiRouter))
 
+/* Resolve */
+
+const theCommentRouter = container.resolve('commentRouter')
+const thePostRouter = container.resolve('postRouter')
+const theAccountRouter = container.resolve('accountRouter')
 const theApiRouter = container.resolve('apiRouter')
 
 app.use('/api', theApiRouter)
 app.use(theAccountRouter)
 app.use(thePostRouter)
+app.use(theCommentRouter)
 app.use(generalRouter)
-
 app.listen(8080, () => {
     console.log('Web application listening on port 8080.')
 })
