@@ -34,7 +34,8 @@ module.exports = ({ accountRepository }) => {
                             accountRepository.register(
                                 credentials,
                                 (error, id) => {
-                                    if (error) callback(error, null)
+                                    if (error)
+                                        callback('Account already exist', null)
                                     else callback(null, id)
                                 }
                             )

@@ -108,20 +108,21 @@ const addPost = post => {
         body: JSON.stringify(post)
     })
         .then(response => {
-            // TODO: Check status code to see if it succeeded. Display errors if it failed.
-            // TODO: Update the view somehow.
-            if (response.status === 200) {
+            return response.json()
+        })
+        .then(body => {
+            if (body.error) {
+                throw body.error
+            } else {
                 goToPage('/')
             }
         })
-
         .catch(error => {
-            // TODO: Update the view and display error.
-            console.log(error)
+            setError('addErrorText', error)
         })
         .then(() => {
-            document.getElementById('addPostButton').disabled = false
             toggleLoader('addloader')
+            document.getElementById('addPostButton').disabled = false
         })
 }
 const updatePost = post => {
@@ -136,20 +137,21 @@ const updatePost = post => {
         body: JSON.stringify(post)
     })
         .then(response => {
-            // TODO: Check status code to see if it succeeded. Display errors if it failed.
-            // TODO: Update the view somehow.
-            if (response.status === 200) {
-                goToPage('/')
+            return response.json()
+        })
+        .then(body => {
+            if (body.error) {
+                throw body.error
+            } else {
+                goToPage('/post/' + post.id)
             }
         })
-
         .catch(error => {
-            // TODO: Update the view and display error.
-            console.log(error)
+            setError('updateErrorText', error)
         })
         .then(() => {
-            document.getElementById('updatePostButton').disabled = false
             toggleLoader('updateloader')
+            document.getElementById('updatePostButton').disabled = false
         })
 }
 const deletePost = id => {
@@ -214,7 +216,6 @@ document
             .value
         const price = document.querySelector('#update-post-page .price').value
         const id = document.querySelector('#update-post-page .id').value
-
         const post = {
             id,
             title,
