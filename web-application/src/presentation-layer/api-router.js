@@ -53,12 +53,11 @@ module.exports = ({ postManager, accountManager }) => {
         })
     })
     router.post('/post/', (request, response) => {
-        //needs idtoken implementation
         if (!request.payload) {
             response.status(403).json({ error: 'Invalid token' })
         }
         const post = {
-            posterid: request.payload.userid,
+            userid: request.payload.userid,
             title: request.body.title,
             content: request.body.content,
             platform: request.body.platform,
@@ -80,6 +79,7 @@ module.exports = ({ postManager, accountManager }) => {
             response.status(403).json({ error: 'Invalid token' })
         }
         const post = {
+            userid: request.payload.userid,
             title: request.body.title,
             content: request.body.content,
             platform: request.body.platform,
@@ -99,8 +99,12 @@ module.exports = ({ postManager, accountManager }) => {
         if (!request.payload) {
             response.status(403).json({ error: 'Invalid token' })
         }
+        const data = {
+            id: request.params.id,
+            userid: request.payload.userid
+        }
 
-        postManager.deletePostById(request.params.id, error => {
+        postManager.deletePostById(data, error => {
             if (error) {
                 response.status(500).send({ error })
             } else {
@@ -159,7 +163,6 @@ module.exports = ({ postManager, accountManager }) => {
         }
         accountManager.register(userdata, (error, id) => {
             if (error) {
-                console.log(error)
                 response.status(500).send({ error })
             } else {
                 jwt.sign({ userid: id }, private_key, (error, access_token) => {

@@ -38,7 +38,6 @@ const fetchToken = (username, password) => {
         })
         .catch(error => {
             setError('loginErrorText', error)
-            console.log(error)
         })
         .then(() => {
             document.getElementById('loginButton').disabled = false
@@ -57,12 +56,15 @@ const register = data => {
         body: JSON.stringify(data)
     })
         .then(response => {
-            // TODO: Check status code to see if it succeeded. Display errors if it failed.
             return response.json()
         })
         .then(body => {
-            login(body.access_token, body.id_token)
-            goToPage('/')
+            if (body.error) {
+                throw body.error
+            } else {
+                login(body.access_token, body.id_token)
+                goToPage('/')
+            }
         })
         .catch(error => {
             setError('registerErrorText', error)
@@ -71,9 +73,6 @@ const register = data => {
             toggleLoader('registerloader')
             document.getElementById('registerButton').disabled = false
         })
-}
-const setError = (id, error) => {
-    document.getElementById(id).innerText = error
 }
 
 document.querySelector('#login-page form').addEventListener('submit', event => {

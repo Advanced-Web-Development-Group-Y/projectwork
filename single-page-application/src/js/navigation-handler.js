@@ -61,5 +61,7 @@ window.addEventListener('popstate', function(event) {
     const url = location.pathname
     changeToPage(url)
 })
-
+const setError = (id, error) => {
+    document.getElementById(id).innerText = error
+}
 changeToPage(location.pathname)
