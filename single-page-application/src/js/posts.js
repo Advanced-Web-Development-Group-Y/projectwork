@@ -13,6 +13,7 @@ const fetchPosts = () => {
                 const personalcontainer = document.createElement('div')
                 personalcontainer.className += 'post'
                 const title = document.createElement('h1')
+                title.classList.add('postTitleRestriction')
                 const price = document.createElement('p')
                 const platform = document.createElement('p')
                 const visit = document.createElement('a')
@@ -21,6 +22,7 @@ const fetchPosts = () => {
                 platform.innerText = post.platform
                 visit.href = '/post/' + post.id
                 visit.innerText = 'More info'
+                visit.classList.add('visitText')
                 personalcontainer.appendChild(title)
                 personalcontainer.appendChild(price)
                 personalcontainer.appendChild(platform)
@@ -60,8 +62,8 @@ const setPostPage = post => {
     parent.appendChild(title)
     parent.appendChild(content)
     parent.appendChild(price)
-    parent.appendChild(date)
     parent.appendChild(platform)
+    parent.appendChild(date)
     if (!localStorage.getItem('id_token')) return
     const currentUser = parseJwt(localStorage.getItem('id_token'))
     if (
@@ -70,9 +72,11 @@ const setPostPage = post => {
     ) {
         const updateanchor = document.createElement('a')
         updateanchor.innerText = 'UPDATE'
+        updateanchor.classList.add('updateText')
         updateanchor.href = '/post/update/' + post.post[0].id
         const deleteanchor = document.createElement('a')
         deleteanchor.innerText = 'DELETE'
+        deleteanchor.classList.add('deleteText')
         deleteanchor.href = '/post/delete/' + post.post[0].id
         parent.appendChild(deleteanchor)
         parent.appendChild(updateanchor)

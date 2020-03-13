@@ -3,13 +3,13 @@
     <h1>Sorry, that post does not exist.</h1>
     {{/if}}
     {{#if post.length}}
-    <h1>Post</h1>
-    <div id="owner">
-        <a href="/profile/{{owner.id}}">{{owner.username}}</a>
-    </div>
+
     {{#each post}}
     <div id="title">
         <h1>{{title}}</h1>
+    </div>
+    <div id="owner">
+        By: <a href="/profile/{{../owner.id}}">{{../owner.username}}</a>
     </div>
     <div id="content">
         <h2>{{content}}</h2>
@@ -18,7 +18,7 @@
         <h2>{{price}} {{currency}}</h2>
     </div>
     <div id="game">
-        <h4>Game: {{platform}}</h4>
+        <h4>Platform: {{platform}}</h4>
     </div>
 
     <div id="posttime">
@@ -28,7 +28,7 @@
     <div id="buttons">
         {{#if ../canUserEditPost}}
         <a href="/post/update/{{id}}" class="btn btn-primary" id="updateBtn">Update Post</a>
-        <form method="POST" action="/post/delete/{{id}}">
+        <form method="POST" action="/post/delete/{{id}}" id="deleteForm">
             <button type="submit" class="btn btn-danger">Delete</button>
         </form>
         {{/if}}
@@ -74,7 +74,7 @@
         <a href="/comment/update/{{id}}" class="btn btn-primary">Update</a>
         {{/if}}
         {{#if ../canDeleteComments}}
-        <form method="POST" action="/comment/delete/{{id}}">
+        <form method="POST" action="/comment/delete/{{id}}" id="deleteCommentForm">
             <input type="hidden" value="{{postid}}" name="postid">
             <button type="submit" class="btn btn-danger">Delete</button>
         </form>
