@@ -9,6 +9,7 @@ const session = require('express-session')
 const bodyParser = require('body-parser')
 const awilix = require('awilix')
 const RedisStore = require('connect-redis')(session)
+
 /*Redis setup*/
 let redisClient = redis.createClient({
     host: 'redis',
@@ -59,9 +60,9 @@ const postManager = require('../business-logic-layer/postManager')
 const commentManager = require('../business-logic-layer/commentManager')
 
 /*Repositories*/
-const postRepository = require('../data-access-layer-Sequelize/postRepository')
-const accountRepository = require('../data-access-layer-Sequelize/accountRepository')
-const commentRepository = require('../data-access-layer-Sequelize/commentRepository')
+const postRepository = require('../data-access-layer-MySQL/postRepository')
+const accountRepository = require('../data-access-layer-MySQL/accountRepository')
+const commentRepository = require('../data-access-layer-MySQL/commentRepository')
 
 /*Routers*/
 const accountRouter = require('../presentation-layer/account-router')
@@ -88,6 +89,7 @@ const thePostRouter = container.resolve('postRouter')
 const theAccountRouter = container.resolve('accountRouter')
 const theApiRouter = container.resolve('apiRouter')
 
+/* Routers */
 app.use('/api', theApiRouter)
 app.use(theAccountRouter)
 app.use(thePostRouter)

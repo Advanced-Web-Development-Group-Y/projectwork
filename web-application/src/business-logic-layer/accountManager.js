@@ -45,12 +45,18 @@ module.exports = ({ accountRepository }) => {
             }
         },
         getAccountById: (id, callback) => {
-            accountRepository.getAccountById(id, callback)
+            accountRepository.getAccountById(id, (error, account) => {
+                if (account !== null) {
+                    callback(null, account)
+                } else {
+                    callback('User not found', null)
+                }
+            })
         },
         updateAccount: (data, callback) => {
             accountRepository.getAccountById(data.id, (error, account) => {
                 if (error) {
-                    callback(error)
+                    callback(error, null)
                 } else if (data.userid !== account[0].id) {
                     callback('Not authorized')
                 } else {
@@ -69,7 +75,7 @@ module.exports = ({ accountRepository }) => {
         deleteAccountById: (data, callback) => {
             accountRepository.getAccountById(data.id, (error, account) => {
                 if (error) {
-                    callback(error)
+                    callback(error, null)
                 } else if (data.userid !== account[0].id) {
                     callback('Not authorized')
                 } else {

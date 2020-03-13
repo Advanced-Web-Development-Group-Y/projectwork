@@ -40,9 +40,16 @@ header {
 }
 footer {
     text-align: center;
-    background-color: orangered;
+    background-color: gray;
+    color: white;
 }
 #add-post-page {
+    text-align: center;
+}
+#delete-post-page {
+    text-align: center;
+}
+#error-page {
     text-align: center;
 }
 .loader {
@@ -72,7 +79,8 @@ footer {
     text-align: center;
 }
 .post {
-    background-color: orange;
+    background-color: gray;
+    color: white;
     margin-bottom: 30px;
     margin-right: 15px;
     text-align: center;
@@ -80,6 +88,7 @@ footer {
     overflow-wrap: break-word;
     width: 200px;
     padding: 15px;
+    padding-bottom: 30px;
 }
 p {
     white-space: nowrap;
@@ -97,4 +106,37 @@ h1 {
 }
 #update-post-page {
     text-align: center;
+}
+#post-page {
+    text-align: center;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+a:visited {
+    color: black;
+}
+a:hover {
+    color: gray;
+}
+.visitText {
+    padding: 15px;
+    border: 1px solid white;
+    color: white !important;
+}
+.updateText {
+    border: 1px solid black;
+    padding: 15px;
+}
+.deleteText {
+    border: 1px solid black;
+    padding: 15px;
+    margin-right: 15px;
+}
+.postTitleRestriction {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    overflow: hidden;
 }

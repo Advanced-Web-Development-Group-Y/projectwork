@@ -223,3 +223,19 @@ input[class='form-control-file'] {
     margin: 15px;
     padding: 50px;
 }
+#buttons {
+    text-align: center;
+    padding-bottom: 15px;
+}
+#updateBtn {
+    margin: 15px;
+}
+#price {
+    text-align: center;
+    margin: 1%;
+    color: #85bb65;
+}
+#deleteCommentForm {
+    margin: 15px;
+    margin-left: 0px;
+}

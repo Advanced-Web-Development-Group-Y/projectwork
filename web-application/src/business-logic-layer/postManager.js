@@ -55,7 +55,6 @@ module.exports = ({ postRepository, accountRepository }) => {
 
         updatePost: (post, callback) => {
             postRepository.getPost(post.postid, (error, fetchedPost) => {
-                console.log(post.userid)
                 if (error) {
                     callback(error)
                 } else if (post.userid !== fetchedPost[0].posterid) {
