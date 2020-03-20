@@ -14,7 +14,7 @@ module.exports = ({ postManager, accountManager }) => {
 
             request.payload = jwt.verify(accessTokenString, private_key)
         } catch (error) {
-            //error
+            console.log(error)
         }
         next()
     })
@@ -69,7 +69,7 @@ module.exports = ({ postManager, accountManager }) => {
                 console.log(error)
                 response.status(500).send({ error })
             } else {
-                response.status(200).send({ id: post.id })
+                response.status(201).send({ id: post.id })
             }
         })
     })
@@ -97,7 +97,7 @@ module.exports = ({ postManager, accountManager }) => {
     })
     router.delete('/post/:id', (request, response) => {
         if (!request.payload) {
-            response.status(403).json({ error: 'Invalid token' })
+            response.status(401).json({ error: 'Invalid token' })
         }
         const data = {
             id: request.params.id,
@@ -125,7 +125,7 @@ module.exports = ({ postManager, accountManager }) => {
         }
         accountManager.login(credentials, (error, user) => {
             if (error) {
-                response.status(400).send({ error: 'invalid_grant' })
+                response.status(400).send({ error: 'invalid_request' })
             } else {
                 jwt.sign(
                     { userid: user[0].id },
@@ -167,7 +167,7 @@ module.exports = ({ postManager, accountManager }) => {
             } else {
                 jwt.sign({ userid: id }, private_key, (error, access_token) => {
                     if (error) response.status(500).send({ error })
-                    else response.status(200).send({ access_token })
+                    else response.status(201).send({ access_token })
                 })
             }
         })
