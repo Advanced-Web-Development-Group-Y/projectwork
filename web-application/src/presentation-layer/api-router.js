@@ -14,7 +14,7 @@ module.exports = ({ postManager, accountManager }) => {
 
             request.payload = jwt.verify(accessTokenString, private_key)
         } catch (error) {
-            console.log(error)
+            //console.log(error)
         }
         next()
     })

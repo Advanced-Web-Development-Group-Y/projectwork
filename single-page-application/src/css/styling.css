@@ -110,6 +110,9 @@ h1 {
 #post-page {
     text-align: center;
 }
+#post-container {
+    text-align: center;
+}
 a {
     text-decoration: none;
     color: black;
