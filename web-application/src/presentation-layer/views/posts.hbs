@@ -1,0 +1,41 @@
+<section class="contentcontainer">
+    <div id="filters">
+        <form method="GET" action="/posts">
+            <h3>Filter</h3>
+            <div class="form-group">
+                <label for="keywordInput">Keyword</label>
+                <input type="text" class="form-control form-control-lg" id="keywordInput" placeholder="example: gold"
+                    name="keyword">
+            </div>
+            <div class="form-group">
+                <label for="platformGameInput">Game/Platform</label>
+                <input type="text" class="form-control form-control-lg" id="platformGameInput" name="platform">
+            </div>
+            {{#if somethingWentWrong}}
+            <p>Something went wrong...</p>
+            {{/if}}
+            <button type="submit" class="btn btn-primary">Filter</button>
+
+        </form>
+    </div>
+
+    <div id="items">
+        {{#if posts.length}}
+        {{#each posts}}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{title}}</h5>
+
+                <p style="margin: 0;"><strong>{{price}} {{currency}}</strong></p>
+
+                <p class="card-platform">{{platform}}</p>
+                {{#if ../isLoggedIn}}
+                <a href="/post/{{id}}" class="btn btn-primary">Check it out</a>
+                {{/if}}
+            </div>
+        </div>
+        {{/each}}
+        {{/if}}
+    </div>
+
+</section>

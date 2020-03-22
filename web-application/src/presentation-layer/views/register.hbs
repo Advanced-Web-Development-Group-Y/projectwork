@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center ">
+    <div id="container">
+        <form action="/register" method="post" class="formStyle">
+            <h3>Register</h3>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Username</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" name="username">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
+                </div>
+                <input type="password" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" name="password">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Confirm password</span>
+                </div>
+                <input type="password" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" name="confirmpassword">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Firstname</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" name="firstname">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Lastname</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" name="lastname">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" name="email">
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+
+            {{#if error}}
+            <p>{{error}}</p>
+            {{/if}}
+        </form>
+    </div>
+</div>

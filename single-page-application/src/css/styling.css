@@ -1,0 +1,145 @@
+* {
+    font-family: 'Noto Sans', sans-serif;
+}
+main > div {
+    display: none;
+}
+
+main > div.current-page {
+    display: block;
+}
+body.isLoggedOut .showIfLoggedIn {
+    display: none;
+}
+
+body.isLoggedIn .showIfLoggedOut {
+    display: none;
+}
+
+nav {
+    border-bottom: 1px solid black;
+    width: 80%;
+    margin: 0 auto;
+    padding: 0.5em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline-block;
+}
+header {
+    text-align: center;
+    font-size: 50pt;
+    text-decoration: line-through;
+}
+footer {
+    text-align: center;
+    background-color: gray;
+    color: white;
+}
+#add-post-page {
+    text-align: center;
+}
+#delete-post-page {
+    text-align: center;
+}
+#error-page {
+    text-align: center;
+}
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+    visibility: hidden;
+}
+.visible {
+    visibility: visible;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.posts-container {
+    margin-top: 15px;
+    text-align: center;
+}
+.post {
+    background-color: gray;
+    color: white;
+    margin-bottom: 30px;
+    margin-right: 15px;
+    text-align: center;
+    display: inline-block;
+    overflow-wrap: break-word;
+    width: 200px;
+    padding: 15px;
+    padding-bottom: 30px;
+}
+p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+h1 {
+    font-size: 17pt;
+}
+#register-page {
+    text-align: center;
+}
+#login-page {
+    text-align: center;
+}
+#update-post-page {
+    text-align: center;
+}
+#post-page {
+    text-align: center;
+}
+#post-container {
+    text-align: center;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+a:visited {
+    color: black;
+}
+a:hover {
+    color: gray;
+}
+.visitText {
+    padding: 15px;
+    border: 1px solid white;
+    color: white !important;
+}
+.updateText {
+    border: 1px solid black;
+    padding: 15px;
+}
+.deleteText {
+    border: 1px solid black;
+    padding: 15px;
+    margin-right: 15px;
+}
+.postTitleRestriction {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    overflow: hidden;
+}

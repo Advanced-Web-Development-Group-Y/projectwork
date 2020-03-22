@@ -1,0 +1,11 @@
+* {
+    font-family: 'Noto Sans', sans-serif;
+}
+#container {
+    border: 1px solid rgb(201, 201, 201);
+    border-radius: 15px;
+    padding: 50px;
+}
+body {
+    height: 100%;
+}

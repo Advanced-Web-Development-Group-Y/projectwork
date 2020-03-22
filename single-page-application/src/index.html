@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <script src="js/parsejwt.js"></script>
+        <script src="js/loader.js" defer></script>
+        <script src="js/posts.js" defer></script>
+        <script src="js/navigation-handler.js" defer></script>
+        <script src="js/authentication.js" defer></script>
+
+        <link rel="stylesheet" href="css/styling.css" />
+        <link
+            href="https://fonts.googleapis.com/css?family=Noto+Sans:700&display=swap"
+            rel="stylesheet"
+        />
+        <title>MRKT</title>
+    </head>
+    <body>
+        <header>
+            MRKT
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li class="showIfLoggedIn">
+                    <a href="/add-post">Add post</a>
+                </li>
+                <li class="showIfLoggedIn">
+                    <a href="/logout">Logout</a>
+                </li>
+                <li class="showIfLoggedOut"><a href="/login">Login</a></li>
+                <li class="showIfLoggedOut">
+                    <a href="/register">Register</a>
+                </li>
+            </ul>
+        </nav>
+
+        <main>
+            <div id="home-page">
+                <div class="posts-container"></div>
+                <div class="loader" id="homeloader"></div>
+            </div>
+
+            <div id="about-page">
+                <h1>About</h1>
+                <p>
+                    This website is for trading virtual items in exchange of
+                    other virtual items or any other currency
+                </p>
+            </div>
+
+            <div id="add-post-page">
+                <h1>Add post</h1>
+                <form action="">
+                    <div>Title: <br /><input type="text" class="title" /></div>
+                    <div>
+                        Content: <br /><textarea
+                            type="text"
+                            class="content"
+                        ></textarea>
+                    </div>
+                    <div>
+                        Platform: <br /><input type="text" class="platform" />
+                    </div>
+                    <div>
+                        Currency: <br /><input type="text" class="currency" />
+                    </div>
+                    <div>
+                        Price: <br /><input type="number" class="price" />
+                    </div>
+                    <p id="addErrorText"></p>
+
+                    <input id="addPostButton" type="submit" value="Create" />
+                    <div class="loader" id="addloader"></div>
+                </form>
+            </div>
+            <div id="update-post-page">
+                <h1>Update post</h1>
+                <form action="">
+                    <div>Title: <br /><input type="text" class="title" /></div>
+                    <div>
+                        Content: <br /><textarea
+                            type="text"
+                            class="content"
+                        ></textarea>
+                    </div>
+                    <div>
+                        Platform: <br /><input type="text" class="platform" />
+                    </div>
+                    <div>
+                        Currency: <br /><input type="text" class="currency" />
+                    </div>
+                    <div>
+                        Price: <br /><input type="number" class="price" />
+                    </div>
+                    <input class="id" type="hidden" value="" />
+                    <p id="updateErrorText"></p>
+                    <input id="updatePostButton" type="submit" value="Update" />
+                    <div class="loader" id="updateloader"></div>
+                </form>
+            </div>
+            <div id="delete-post-page">
+                <h1>Delete post</h1>
+                <form action="">
+                    <p>Are you sure you want to delete this post?</p>
+                    <input class="id" type="hidden" value="" />
+                    <input id="deletePostButton" type="submit" value="Delete" />
+                    <div class="loader" id="deleteloader"></div>
+                </form>
+            </div>
+            <div id="login-page">
+                <h1>Login</h1>
+                <form action="">
+                    <div>
+                        Username: <br /><input type="text" class="username" />
+                    </div>
+                    <div>
+                        Password: <br /><input
+                            type="password"
+                            class="password"
+                        />
+                    </div>
+
+                    <p id="loginErrorText"></p>
+                    <input type="submit" value="Login" id="loginButton" />
+                    <div class="loader" id="loginloader"></div>
+                </form>
+            </div>
+            <div id="register-page">
+                <h1>Register</h1>
+                <form action="">
+                    <div>
+                        Username: <br /><input type="text" class="username" />
+                    </div>
+                    <div>
+                        Password: <br /><input
+                            type="password"
+                            class="password"
+                        />
+                    </div>
+                    <div>
+                        Confirm password:<br />
+                        <input type="password" class="confirmpassword" />
+                    </div>
+                    <div>
+                        Firstname:<br />
+                        <input type="text" class="firstname" />
+                    </div>
+                    <div>
+                        Lastname: <br /><input type="text" class="lastname" />
+                    </div>
+                    <div>Email: <br /><input type="text" class="email" /></div>
+                    <p id="registerErrorText"></p>
+                    <input type="submit" value="Register" id="registerButton" />
+                    <div class="loader" id="registerloader"></div>
+                </form>
+            </div>
+            <div id="post-page">
+                <div id="post-container"></div>
+                <div class="loader" id="postloader"></div>
+            </div>
+            <div id="error-page">
+                <h1>Error</h1>
+                <p>Oups, something went wrong ^^'</p>
+            </div>
+        </main>
+
+        <footer>
+            MRKT | Copyright 2020 MRKT INC. |
+            <a href="/about">About</a>
+        </footer>
+    </body>
+</html>
