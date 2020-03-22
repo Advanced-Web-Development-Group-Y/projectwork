@@ -53,7 +53,7 @@ module.exports = ({ postManager, accountManager }) => {
     })
     router.post('/post/', (request, response) => {
         if (!request.payload) {
-            response.status(403).json({ error: 'Invalid token' })
+            response.status(401).json({ error: 'invalid_token' })
         }
         const post = {
             userid: request.payload.userid,
@@ -75,7 +75,7 @@ module.exports = ({ postManager, accountManager }) => {
 
     router.put('/post/:id', (request, response) => {
         if (!request.payload) {
-            response.status(403).json({ error: 'Invalid token' })
+            response.status(401).json({ error: 'invalid_token' })
         }
         const post = {
             userid: request.payload.userid,
@@ -96,7 +96,7 @@ module.exports = ({ postManager, accountManager }) => {
     })
     router.delete('/post/:id', (request, response) => {
         if (!request.payload) {
-            response.status(401).json({ error: 'Invalid token' })
+            response.status(401).json({ error: 'invalid_token' })
         }
         const data = {
             id: request.params.id,
