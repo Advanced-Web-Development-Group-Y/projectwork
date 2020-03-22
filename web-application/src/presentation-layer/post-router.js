@@ -68,10 +68,6 @@ module.exports = ({ postManager, commentManager, accountManager }) => {
                         post[0].posterid === request.session.user[0].id
                             ? true
                             : false
-
-                    if (request.session.user[0].permission_level === 1) {
-                        canEditPost = true
-                    }
                 }
 
                 accountManager.getAccountById(
