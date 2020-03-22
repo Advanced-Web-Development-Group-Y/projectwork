@@ -20,15 +20,6 @@ redisClient.unref()
 redisClient.on('error', console.log)
 let store = new RedisStore({ client: redisClient })
 
-app.use(
-    session({
-        store,
-        resave: false,
-        saveUninitialized: false,
-        secret: 'elpassword123'
-    })
-)
-
 /*App engine */
 app.engine(
     'hbs',
@@ -38,6 +29,14 @@ app.engine(
 )
 
 /*Middlewares*/
+app.use(
+    session({
+        store,
+        resave: false,
+        saveUninitialized: false,
+        secret: 'elpassword123'
+    })
+)
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
