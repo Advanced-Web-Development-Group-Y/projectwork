@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken')
 const private_key = 'theratcatmatsatu'
 
 module.exports = ({ postManager, accountManager }) => {
-    // TODO: FIX ERROR CODES
     const router = express.Router()
     router.use((request, response, next) => {
         try {
