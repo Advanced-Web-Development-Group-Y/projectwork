@@ -239,3 +239,6 @@ input[class='form-control-file'] {
     margin: 15px;
     margin-left: 0px;
 }
+#empty {
+    text-align: center;
+}

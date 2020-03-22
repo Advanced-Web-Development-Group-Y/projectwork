@@ -9,25 +9,31 @@ const fetchPosts = () => {
             return response.json()
         })
         .then(posts => {
-            for (const post of posts.posts) {
-                const personalcontainer = document.createElement('div')
-                personalcontainer.className += 'post'
-                const title = document.createElement('h1')
-                title.classList.add('postTitleRestriction')
-                const price = document.createElement('p')
-                const platform = document.createElement('p')
-                const visit = document.createElement('a')
-                title.innerText = post.title
-                price.innerText = post.price + ' ' + post.currency
-                platform.innerText = post.platform
-                visit.href = '/post/' + post.id
-                visit.innerText = 'More info'
-                visit.classList.add('visitText')
-                personalcontainer.appendChild(title)
-                personalcontainer.appendChild(price)
-                personalcontainer.appendChild(platform)
-                personalcontainer.appendChild(visit)
-                parent.appendChild(personalcontainer)
+            if (!posts.posts.length > 0) {
+                const empty = document.createElement('p')
+                empty.innerText = 'No posts yet.'
+                parent.appendChild(empty)
+            } else {
+                for (const post of posts.posts) {
+                    const personalcontainer = document.createElement('div')
+                    personalcontainer.className += 'post'
+                    const title = document.createElement('h1')
+                    title.classList.add('postTitleRestriction')
+                    const price = document.createElement('p')
+                    const platform = document.createElement('p')
+                    const visit = document.createElement('a')
+                    title.innerText = post.title
+                    price.innerText = post.price + ' ' + post.currency
+                    platform.innerText = post.platform
+                    visit.href = '/post/' + post.id
+                    visit.innerText = 'More info'
+                    visit.classList.add('visitText')
+                    personalcontainer.appendChild(title)
+                    personalcontainer.appendChild(price)
+                    personalcontainer.appendChild(platform)
+                    personalcontainer.appendChild(visit)
+                    parent.appendChild(personalcontainer)
+                }
             }
         })
         .catch(function(error) {
@@ -66,10 +72,7 @@ const setPostPage = post => {
     parent.appendChild(date)
     if (!localStorage.getItem('id_token')) return
     const currentUser = parseJwt(localStorage.getItem('id_token'))
-    if (
-        post.post[0].posterid === currentUser.userid ||
-        currentUser.permission === 1
-    ) {
+    if (post.post[0].posterid === currentUser.userid) {
         const updateanchor = document.createElement('a')
         updateanchor.innerText = 'UPDATE'
         updateanchor.classList.add('updateText')
